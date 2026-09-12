@@ -1,189 +1,136 @@
-/* Colores y Tipografía */
 :root {
-    --color-fondo: #fcf9f2; /* Crema elegante */
-    --color-hilo: #d90429;  /* Rojo intenso */
-    --color-texto: #2b2d42;
+    --color-fondo-oscuro: #1c1a21;
+    --color-fondo-claro: #faf5f0;
+    --color-acento: #8c2a3e; /* Granate del vídeo */
+    --color-texto: #4a3f44;
 }
 
 body {
     margin: 0;
     padding: 0;
-    background-color: var(--color-fondo);
-    color: var(--color-texto);
     font-family: 'Georgia', serif;
     overflow-x: hidden;
 }
 
-section {
-    min-height: 100vh;
+/* FASE 1: Pantalla Oscura */
+#pantalla-inicio {
+    background-color: var(--color-fondo-oscuro);
+    color: white;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    text-align: center;
+    transition: opacity 1s ease-out; /* Transición suave de salida */
+}
+
+.imagen-central-oscura {
+    width: 250px;
+    height: 250px;
+    background: #333;
+    border-radius: 50%;
+    margin: 20px 0;
+}
+
+.btn-rojo { background-color: var(--color-acento); color: white; }
+.btn-gris { background-color: #555; color: white; position: relative; }
+
+/* FASE 2: Web Luminosa */
+.oculto {
+    display: none !important;
+}
+
+#web-principal {
+    background-color: var(--color-fondo-claro);
+    color: var(--color-texto);
+    animation: aparecer 1s ease-in;
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Menú Pegajoso */
+.menu-pegajoso {
+    position: sticky;
+    top: 0;
+    background-color: rgba(250, 245, 240, 0.95);
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(140, 42, 62, 0.2);
+}
+
+.menu-pegajoso a {
+    text-decoration: none;
+    color: var(--color-texto);
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transition: color 0.3s;
+}
+
+.menu-pegajoso a:hover {
+    color: var(--color-acento);
+}
+
+/* Grid de Tarjetas (Cosas que quiero decirte) */
+.seccion-clara {
+    padding: 80px 20px;
     text-align: center;
 }
 
-/* El Hilo Rojo */
-.timeline {
-    position: relative;
-    padding: 100px 0;
+.titulo-seccion {
+    font-size: 2.5rem;
+    color: var(--color-acento);
+    margin-bottom: 40px;
 }
 
-.hilo-rojo {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 3px;
-    background-color: var(--color-hilo);
-    transform: translateX(-50%);
-    z-index: 1;
+.subtitulo {
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #a89f9e;
 }
 
-/* Tarjetas del Timeline */
-.hito {
-    position: relative;
-    z-index: 2;
-    width: 80%;
-    max-width: 400px;
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    margin: 40px 0;
-}
-
-.hito-izquierda { align-self: flex-start; margin-left: 5%; }
-.hito-derecha { align-self: flex-end; margin-right: 5%; }
-
-.foto-placeholder {
-    width: 100%;
-    height: 250px;
-    background: #e5e5e5;
+.grid-tarjetas {
     display: flex;
-    align-items: center;
     justify-content: center;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    font-family: sans-serif;
-    color: #888;
-}
-
-/* Botones Trampa */
-.pregunta-trampa {
-    position: relative; /* Necesario para que el botón No se mueva por la pantalla */
-}
-
-.contenedor-botones {
-    display: flex;
     gap: 20px;
-    margin-top: 20px;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
-.btn {
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-family: inherit;
-    transition: transform 0.2s;
+.tarjeta {
+    background: white;
+    padding: 30px;
+    width: 280px;
+    border: 1px solid rgba(140, 42, 62, 0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
-#btn-si {
-    background-color: var(--color-hilo);
+.tarjeta-destacada {
+    background: var(--color-acento);
     color: white;
 }
 
-#btn-si:hover { transform: scale(1.1); }
-
-#btn-no {
-    background-color: #ccc;
-    color: #333;
-    position: relative; 
+/* Polaroids para el Timeline */
+.polaroid {
+    background: white;
+    padding: 15px 15px 30px 15px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    border: 1px solid #eee;
+    width: 250px;
 }
 
-/* Placeholder Final */
-.placeholder-video {
-    width: 300px;
-    height: 300px;
-    border: 2px dashed var(--color-hilo);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-/* Barra de Inventario */
-#barra-inventario {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 15px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 10px 20px;
-    border-radius: 30px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    z-index: 100;
-}
-
-.slot {
-    width: 40px;
-    height: 40px;
-    border: 2px dashed #ccc;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    transition: all 0.3s ease;
-}
-
-.slot.lleno {
-    border: 2px solid var(--color-hilo);
-    background: #fff0f3;
-}
-
-/* Regalos Ocultos en la página */
-.regalo-oculto {
-    position: absolute; /* Para ponerlos por la pantalla libremente */
-    font-size: 2rem;
-    opacity: 0.3; /* Camuflados */
-    cursor: pointer;
-    transition: transform 0.2s, opacity 0.2s;
-    z-index: 10;
-}
-
-.regalo-oculto:hover {
-    opacity: 1;
-    transform: scale(1.2);
-}
-
-.ocultar-elemento {
-    display: none;
-}
-
-/*Hilo rojo*/
-.contenedor-hilo-svg {
-    position: absolute;
-    top: 0;
-    left: 0;
+.foto-real {
     width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none; /* Para que no estorbe al hacer clic en los regalos ocultos */
-}
-
-.hilo-animado {
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-}
-
-/* Opcional: Esto hace que el hilo parezca dibujado a mano */
-#ruta-hilo {
-    filter: drop-shadow(0px 2px 3px rgba(217, 4, 41, 0.4));
+    height: auto;
+    object-fit: cover;
+    aspect-ratio: 1/1; /* Las hace cuadradas */
 }
