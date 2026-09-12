@@ -4,39 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Ti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <!-- FASE 1: Pantalla Oscura Inicial -->
-    <section id="pantalla-inicio">
+    <section id="pantalla-inicio" class="pregunta-trampa oscura">
+        <!-- Detalle del hilo rojo arriba -->
+        <div class="hilo-decorativo arriba">
+            <svg height="40" width="200" viewBox="0 0 200 40"><path d="M0,20 Q50,0 100,20 T200,20" fill="none" stroke="#d90429" stroke-width="3"/><circle cx="100" cy="20" r="5" fill="#d90429"/></svg>
+        </div>
+
         <div class="contenido-inicio">
-            <h1>TE AMO</h1>
-            <!-- Aquí puedes poner la imagen del corazón/puzzle -->
-            <div class="imagen-central-oscura"></div> 
+            <h1 class="te-amo-titulo">Te amo</h1>
             
+            <div class="corazon-foto">
+                <!-- Sustituye el src por tu foto de pareja -->
+                <img src="assets/tu-foto-pareja.jpg" alt="Tú y yo">
+            </div>
+
             <h2>Antes de empezar... ¿Me amas?</h2>
             <div class="contenedor-botones">
-                <button id="btn-si" class="btn btn-rojo">SÍ, SIEMPRE ✨</button>
+                <button id="btn-si" class="btn btn-rojo">Sí ❤️</button>
                 <button id="btn-no" class="btn btn-gris">No</button>
             </div>
+        </div>
+
+        <!-- Detalle del hilo rojo abajo -->
+        <div class="hilo-decorativo abajo">
+            <svg height="40" width="200" viewBox="0 0 200 40"><path d="M0,20 Q50,40 100,20 T200,20" fill="none" stroke="#d90429" stroke-width="3"/><circle cx="100" cy="20" r="5" fill="#d90429"/></svg>
         </div>
     </section>
 
     <!-- FASE 2: La Web Luminosa (Oculta al principio) -->
     <main id="web-principal" class="oculto">
         
-        <!-- Menú de Navegación -->
-        <nav class="menu-pegajoso">
-            <a href="#mensajes">MENSAJES</a>
-            <a href="#nuestro-hilo">NUESTRO HILO</a>
-            <a href="#sorpresa">SORPRESA</a>
-        </nav>
-
-        <!-- Sección de Tarjetas (Como en el vídeo) -->
+        <!-- SECCIÓN NUEVA: Tarjetas y Leyendas -->
         <section id="mensajes" class="seccion-clara">
-            <h3 class="subtitulo">Pequeñas verdades</h3>
-            <h2 class="titulo-seccion">Cosas que quiero decirte</h2>
+            <h1 class="titulo-seccion">NUESTRA HISTORIA</h1>
+            <h3 class="subtitulo">Más allá del destino</h3>
+            <p class="texto-intro">
+                No sé si estamos conectados por el hilo rojo de la leyenda japonesa, si nuestras vidas estaban escritas en un cielo estrellado o si todo es una simple coincidencia del universo. Lo único que sé con certeza es esto:
+            </p>
             
             <div class="grid-tarjetas">
                 <div class="tarjeta">
@@ -54,40 +63,199 @@
             </div>
         </section>
 
-        <!-- El Timeline del Hilo Rojo -->
-        <section id="nuestro-hilo" class="timeline seccion-clara">
+        <!-- SECCIÓN MODIFICADA: Tu Timeline Original -->
+        <section id="historia" class="timeline">
+            
+            <!-- SECCIÓN MODIFICADA: Tu Timeline Original -->
+        <section id="historia" class="timeline">
+            
             <h3 class="subtitulo">El destino</h3>
             <h2 class="titulo-seccion">Nuestro hilo rojo</h2>
-            
+
+            <!-- Regalos camuflados -->
+            <div class="regalo-oculto" id="regalo-cine" style="top: 15%; left: 15%;">🎟️</div>
+            <div class="regalo-oculto" id="regalo-cena" style="top: 45%; left: 80%;">🍷</div>
+            <div class="regalo-oculto" id="regalo-abrazo" style="top: 80%; left: 10%;">🫂</div>
+
             <div class="contenedor-hilo-svg">
-                <!-- Tu SVG del hilo irá aquí -->
+                <!-- Tu SVG del hilo actualizado -->
                 <svg viewBox="0 0 100 1000" preserveAspectRatio="none" class="hilo-animado">
-                    <path d="M 50 0 C 10 100, 90 200, 50 300 C -20 400, 120 450, 50 500 C 80 550, 20 600, 50 650 C -50 700, 150 750, 50 800 Q 50 900, 50 1000" stroke="#8c2a3e" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <path d="M 50 0 C 10 100, 90 200, 50 300 C -20 400, 120 450, 50 500 C 80 550, 20 600, 50 650 C -50 700, 150 750, 50 800 Q 50 900, 50 1000" stroke="#da002d" stroke-width="2" fill="none" stroke-linecap="round"/>
                 </svg>
             </div>
             
-            <!-- Ejemplo de fotos estilo Polaroid -->
-            <div class="hito hito-izquierda polaroid" style="transform: rotate(-3deg);">
-                <img src="assets/ella-pequena.jpg" alt="Tú de pequeña" class="foto-real">
-                <p>Cuando el hilo recién se ató.</p>
-            </div>
+            <!-- A partir de aquí siguen tus fotos (<div class="hito... >) -->
+
+            <!-- CAMBIO: He devuelto el div de la línea recta clásica para que el hilo central exista sí o sí
+            <div class="hilo-rojo"></div>
+
+            <div class="contenedor-hilo-svg">
+                <svg viewBox="0 0 100 3000" preserveAspectRatio="none" class="hilo-animado">
+                    Dejamos el SVG preparado para cuando lo dibujes 
+                    <path id="ruta-hilo" d="" stroke="var(--color-hilo)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                </svg>
+            </div> -->
             
-            <div class="hito hito-derecha polaroid" style="transform: rotate(4deg);">
-                <img src="assets/tu-pequeno.jpg" alt="Yo de pequeño" class="foto-real">
-                <p>Y yo andaba por ahí con los mismos rodillazos.</p>
+            <div class="hito hito-izquierda polaroid" style="transform: rotate(-3deg);">
+                <div class="foto-placeholder">[Foto tuya < 10 años]</div>
+                <p>Cuando el hilo recién se ató y no sabíamos nada del mundo.</p>
             </div>
-            <!-- Añade el resto de pares de fotos aquí -->
+            <div class="hito hito-derecha polaroid" style="transform: rotate(4deg);">
+                <div class="foto-placeholder">[Foto mía < 10 años]</div>
+                <p>Yo andaba por ahí, con los mismos rodillazos.</p>
+            </div>
+
+            <div class="hito hito-izquierda polaroid" style="transform: rotate(2deg);">
+                <div class="foto-placeholder">[Foto tuya 10-11 años]</div>
+                <p>Creciendo sin saber que ya estábamos conectados.</p>
+            </div>
+            <div class="hito hito-derecha polaroid" style="transform: rotate(-2deg);">
+                <div class="foto-placeholder">[Foto mía 10-11 años]</div>
+                <p>A kilómetros de distancia, pero en el mismo camino.</p>
+            </div>
+
+            <div class="hito hito-izquierda polaroid" style="transform: rotate(-4deg);">
+                <div class="foto-placeholder">[Foto tuya 12 años]</div>
+                <p>Empezando a descubrir quiénes éramos.</p>
+            </div>
+            <div class="hito hito-derecha polaroid" style="transform: rotate(3deg);">
+                <div class="foto-placeholder">[Foto mía 12 años]</div>
+                <p>Con pintas que es mejor no recordar demasiado.</p>
+            </div>
+
+            <div class="hito hito-izquierda polaroid" style="transform: rotate(3deg);">
+                <div class="foto-placeholder">[Foto tuya 14 años]</div>
+                <p>La etapa en la que nos perdimos un poco...</p>
+            </div>
+            <div class="hito hito-derecha polaroid" style="transform: rotate(-3deg);">
+                <div class="foto-placeholder">[Foto mía 14 años]</div>
+                <p>...dando vueltas sin saber a dónde íbamos.</p>
+            </div>
+
+            <div class="hito hito-izquierda polaroid" style="transform: rotate(-2deg);">
+                <div class="foto-placeholder">[Foto tuya 16-17 años]</div>
+                <p>Buscando nuestro lugar.</p>
+            </div>
+            <div class="hito hito-derecha polaroid" style="transform: rotate(4deg);">
+                <div class="foto-placeholder">[Foto mía 16-17 años]</div>
+                <p>Y equivocándonos para aprender.</p>
+            </div>
+
+            <div class="hito hito-izquierda polaroid" style="transform: rotate(2deg);">
+                <div class="foto-placeholder">[Foto tuya 18 años]</div>
+                <p>Acercándonos sin saberlo.</p>
+            </div>
+            <div class="hito hito-derecha polaroid" style="transform: rotate(-2deg);">
+                <div class="foto-placeholder">[Foto mía 18 años]</div>
+                <p>A punto de coincidir.</p>
+            </div>
+
+            <div class="hito hito-izquierda polaroid" style="transform: rotate(-3deg);">
+                <div class="foto-placeholder">[Foto tuya 20 años]</div>
+                <p>La persona de la que me iba a enamorar.</p>
+            </div>
+            <div class="hito hito-derecha polaroid" style="transform: rotate(3deg);">
+                <div class="foto-placeholder">[Foto mía 20 años]</div>
+                <p>Y el que tuvo la suerte de encontrarte.</p>
+            </div>
+
+            <div class="hito hito-izquierda polaroid" style="transform: rotate(2deg);">
+                <div class="foto-placeholder">[Tu foto favorita nuestra]</div>
+                <p>Y de repente, el hilo se tensó.</p>
+            </div>
+            <div class="hito hito-derecha polaroid" style="transform: rotate(-4deg);">
+                <div class="foto-placeholder">[Nuestra primera foto]</div>
+                <p>Para no soltarse nunca.</p>
+            </div>
         </section>
-        
-        <!-- Barra de Inventario de Regalos (Oculta hasta interactuar) -->
+
+        <!-- SECCIÓN NUEVA: Hilo con Luces y Recuerdos -->
+        <!-- SECCIÓN NUEVA: Hilo con Luces y Recuerdos -->
+        <section id="luces-recuerdos" class="seccion-luces">
+            <div id="foco-linterna"></div>
+            <h2 class="titulo-artistico">Y todo lo que vino después</h2>
+            
+            <!-- PRIMERA HILERA DE LUCES -->
+            <div class="cuerda-luces">
+                <div class="luz" style="left: 15%; bottom: -2px;"></div>
+                <div class="luz" style="left: 35%; bottom: -5px;"></div>
+                <div class="luz" style="left: 50%; bottom: -6px;"></div>
+                <div class="luz" style="left: 65%; bottom: -5px;"></div>
+                <div class="luz" style="left: 85%; bottom: -2px;"></div>
+
+                <div class="foto-colgada" style="left: 20%; animation-delay: 0s;">
+                    <div class="pinza"></div>
+                    <div class="polaroid-mini">
+                        <div class="foto-placeholder">[Selfie 1]</div>
+                        <p>Nuestro primer viaje</p>
+                    </div>
+                </div>
+                
+                <div class="foto-colgada" style="left: 50%; animation-delay: 0.5s;">
+                    <div class="pinza"></div>
+                    <div class="polaroid-mini">
+                        <div class="foto-placeholder">[Selfie 2]</div>
+                        <p>Aquel día de lluvia</p>
+                    </div>
+                </div>
+
+                <div class="foto-colgada" style="left: 80%; animation-delay: 1s;">
+                    <div class="pinza"></div>
+                    <div class="polaroid-mini">
+                        <div class="foto-placeholder">[Selfie 3]</div>
+                        <p>Mi lugar favorito</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEGUNDA HILERA DE LUCES -->
+            <div class="cuerda-luces cuerda-secundaria">
+                <div class="luz" style="left: 10%; bottom: -2px;"></div>
+                <div class="luz" style="left: 30%; bottom: -5px;"></div>
+                <div class="luz" style="left: 55%; bottom: -6px;"></div>
+                <div class="luz" style="left: 75%; bottom: -5px;"></div>
+                <div class="luz" style="left: 90%; bottom: -2px;"></div>
+
+                <div class="foto-colgada" style="left: 25%; animation-delay: 0.2s;">
+                    <div class="pinza"></div>
+                    <div class="polaroid-mini">
+                        <div class="foto-placeholder">[Selfie 4]</div>
+                        <p>Una noche especial</p>
+                    </div>
+                </div>
+                
+                <div class="foto-colgada" style="left: 55%; animation-delay: 0.7s;">
+                    <div class="pinza"></div>
+                    <div class="polaroid-mini">
+                        <div class="foto-placeholder">[Selfie 5]</div>
+                        <p>Haciendo locuras</p>
+                    </div>
+                </div>
+
+                <div class="foto-colgada" style="left: 85%; animation-delay: 1.2s;">
+                    <div class="pinza"></div>
+                    <div class="polaroid-mini">
+                        <div class="foto-placeholder">[Selfie 6]</div>
+                        <p>Simplemente tú</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inventario y Final -->
         <div id="barra-inventario">
             <div class="slot" id="slot-1"></div>
             <div class="slot" id="slot-2"></div>
             <div class="slot" id="slot-3"></div>
         </div>
 
-    </main>
+        <section class="final-visualizer" id="seccion-final">
+            <div class="placeholder-video">
+                <p>[Aquí incrustaremos el vídeo .webm transparente]</p>
+            </div>
+        </section>
 
+    </main>
     <script src="script.js"></script>
 </body>
 </html>
