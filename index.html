@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Ti</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sección 1: El muro inicial -->
+    <section id="inicio" class="pregunta-trampa">
+        <h2>Antes de empezar... ¿Me amas?</h2>
+        <div class="contenedor-botones">
+            <button id="btn-si" class="btn">Sí ❤️</button>
+            <button id="btn-no" class="btn">No</button>
+        </div>
+    </section>
+
+    <!-- Sección 2: La Bienvenida (ahora con un ID para poder navegar hacia ella) -->
+    <section id="historia" class="hero">
+        <h1>Nosotros</h1>
+        <p class="leyenda">
+            Dice la leyenda que dos personas destinadas a encontrarse están unidas por un hilo rojo invisible.<br><br>
+            Puede estirarse, enredarse, pero nunca romperse.
+        </p>
+    </section>
+
+    <div id="barra-inventario">
+        <div class="slot" id="slot-1"></div>
+        <div class="slot" id="slot-2"></div>
+        <div class="slot" id="slot-3"></div>
+    </div>
+
+
+    <!-- Añade estos regalos camuflados dentro de la sección del timeline o donde quieras -->
+    <div class="regalo-oculto" id="regalo-cine" style="top: 25%; left: 15%;">🎟️</div>
+    <div class="regalo-oculto" id="regalo-cena" style="top: 60%; left: 80%;">🍷</div>
+    <div class="regalo-oculto" id="regalo-abrazo" style="top: 85%; left: 10%;">🫂</div>
+
+
+
+    <!-- Sección 3: El Hilo y el Timeline -->
+    <section id="historia" class="timeline">
+        <div class="contenedor-hilo-svg">
+            <!-- Aquí irá el SVG que dibujes en Figma (lo dejamos preparado) -->
+            <svg viewBox="0 0 100 3000" preserveAspectRatio="none" class="hilo-animado">
+                <path id="ruta-hilo" d="..." stroke="var(--color-hilo)" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </svg>
+        </div>
+        
+        <!-- Par 1: Infancia (< 10 años) -->
+        <div class="hito hito-izquierda">
+            <div class="foto-placeholder">[Foto tuya < 10 años]</div>
+            <p>Cuando el hilo recién se ató y no sabíamos nada del mundo.</p>
+        </div>
+        <div class="hito hito-derecha">
+            <div class="foto-placeholder">[Foto mía < 10 años]</div>
+            <p>Yo andaba por ahí, con los mismos rodillazos.</p>
+        </div>
+
+        <!-- Par 2: 10-11 años -->
+        <div class="hito hito-izquierda">
+            <div class="foto-placeholder">[Foto tuya 10-11 años]</div>
+            <p>Creciendo sin saber que ya estábamos conectados.</p>
+        </div>
+        <div class="hito hito-derecha">
+            <div class="foto-placeholder">[Foto mía 10-11 años]</div>
+            <p>A kilómetros de distancia, pero en el mismo camino.</p>
+        </div>
+
+        <!-- Par 3: 12 años -->
+        <div class="hito hito-izquierda">
+            <div class="foto-placeholder">[Foto tuya 12 años]</div>
+            <p>Empezando a descubrir quiénes éramos.</p>
+        </div>
+        <div class="hito hito-derecha">
+            <div class="foto-placeholder">[Foto mía 12 años]</div>
+            <p>Con pintas que es mejor no recordar demasiado.</p>
+        </div>
+
+        <!-- Par 4: 14 años (El Enredo) -->
+        <div class="hito hito-izquierda">
+            <div class="foto-placeholder">[Foto tuya 14 años]</div>
+            <p>La etapa en la que nos perdimos un poco...</p>
+        </div>
+        <div class="hito hito-derecha">
+            <div class="foto-placeholder">[Foto mía 14 años]</div>
+            <p>...dando vueltas sin saber a dónde íbamos.</p>
+        </div>
+
+        <!-- Par 5: Adolescencia -->
+        <div class="hito hito-izquierda">
+            <div class="foto-placeholder">[Foto tuya 16-17 años]</div>
+            <p>Buscando nuestro lugar.</p>
+        </div>
+        <div class="hito hito-derecha">
+            <div class="foto-placeholder">[Foto mía 16-17 años]</div>
+            <p>Y equivocándonos para aprender.</p>
+        </div>
+
+        <!-- Par 6: 18 años -->
+        <div class="hito hito-izquierda">
+            <div class="foto-placeholder">[Foto tuya 18 años]</div>
+            <p>Acercándonos sin saberlo.</p>
+        </div>
+        <div class="hito hito-derecha">
+            <div class="foto-placeholder">[Foto mía 18 años]</div>
+            <p>A punto de coincidir.</p>
+        </div>
+
+        <!-- Par 7: 20 años / Actualidad -->
+        <div class="hito hito-izquierda">
+            <div class="foto-placeholder">[Foto tuya 20 años]</div>
+            <p>La persona de la que me iba a enamorar.</p>
+        </div>
+        <div class="hito hito-derecha">
+            <div class="foto-placeholder">[Foto mía 20 años]</div>
+            <p>Y el que tuvo la suerte de encontrarte.</p>
+        </div>
+
+        <!-- Par 8: Juntos -->
+        <div class="hito hito-izquierda">
+            <div class="foto-placeholder">[Tu foto favorita nuestra]</div>
+            <p>Y de repente, el hilo se tensó.</p>
+        </div>
+        <div class="hito hito-derecha">
+            <div class="foto-placeholder">[Nuestra primera foto]</div>
+            <p>Para no soltarse nunca.</p>
+        </div>
+    </section>
+
+    <!-- Sección 4: El Botón Imposible
+    <section class="pregunta-trampa">
+        <h2>¿Me amas?</h2>
+        <div class="contenedor-botones">
+            <button id="btn-si" class="btn">Sí ❤️</button>
+            <button id="btn-no" class="btn">No</button>
+        </div>
+    </section> -->
+
+    <!-- Sección 4: El Final (Placeholder para Blender) -->
+    <section class="final-visualizer" id="seccion-final">
+        <div class="placeholder-video">
+            <p>[Aquí incrustaremos el vídeo .webm transparente de los monigotes feos bailando]</p>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
