@@ -674,15 +674,23 @@ section {
 }
 
 /* El clímax que se revela al hacer clic */
-#corazon-final {
+#texto-corazon-final {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 10;
-    text-align: center;
     transition: opacity 1.5s ease-in-out;
     pointer-events: none;
+    
+    /* Añadidos para el resplandor interior */
+    width: 320px;
+    height: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, rgba(217,4,41,0.2) 0%, rgba(217,4,41,0) 65%);
+    border-radius: 50%;
 }
 
 .oculto-inicialmente {
@@ -695,18 +703,25 @@ section {
     visibility: visible !important;
 }
 
-.corazon-brillante {
-    font-size: 6rem;
-    filter: drop-shadow(0 0 20px #d90429);
-    animation: latido 1.2s infinite;
-}
-
 .texto-destino {
     font-family: 'Georgia', serif;
-    font-size: 3rem;
+    font-size: 3.5rem;
     color: white;
-    margin-top: 10px;
-    letter-spacing: 10px;
+    letter-spacing: 15px;
+    text-shadow: 0 0 20px #d90429, 0 0 40px #d90429;
+    margin: 0;
+    /* Obliga a apilar las palabras verticalmente y centradas */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1; 
+}
+
+.y-medio {
+    font-size: 2rem; /* Más pequeña para no robar protagonismo */
+    font-style: italic; /* Toque elegante */
+    margin: 15px 0;
+    color: #ffccd5; /* Un tono crema/rosado sutil */
     text-shadow: 0 0 15px #d90429;
 }
 
@@ -717,4 +732,66 @@ section {
     30% { transform: scale(1.15); }
     40% { transform: scale(1); }
     100% { transform: scale(1); }
+}
+
+/* --- CORRECCIÓN DE CAPAS (Z-INDEX) --- */
+/* Evita que los hilos pasen por encima de las fotos y los mensajes */
+.foto-colgada,
+.seccion-clara,
+.grid-tarjetas {
+    position: relative;
+    z-index: 20; 
+}
+
+/* Asegura que el fondo de la polaroid tape cualquier línea que pase por detrás */
+.polaroid-mini {
+    background-color: white; 
+    position: relative;
+    z-index: 21;
+}
+
+/* --- ADAPTACIÓN PARA MÓVILES --- */
+@media (max-width: 768px) {
+    
+    /* 1. Menú Sticky en Móvil */
+    .menu-pegajoso {
+        gap: 8px; /* Reduce el espacio entre botones */
+        padding: 10px 5px;
+        flex-wrap: wrap; /* Permite que los enlaces bajen de línea si no caben */
+    }
+    
+    .menu-pegajoso a {
+        font-size: 0.65rem; /* Letra más pequeña */
+        letter-spacing: 1px;
+    }
+
+    /* 2. Fotos centradas en Móvil */
+    /* Sobrescribimos el 'left' manual del HTML para usar Flexbox y repartir el espacio */
+    .cuerda-luces {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+        padding-top: 20px;
+    }
+    
+    .foto-colgada {
+        position: relative !important;
+        left: 0 !important; /* Anula los porcentajes fijos que las desplazaban a la derecha */
+        transform: none !important; /* Reduce rotaciones extremas en móvil si las hubiera */
+        margin: 0 5px;
+    }
+
+    .polaroid-mini {
+        width: 90px; /* Hace las fotos un pelín más compactas para que quepan 3 */
+        padding: 6px;
+    }
+    
+    .foto-placeholder {
+        height: 90px;
+    }
+    
+    .polaroid-mini p {
+        font-size: 0.7rem;
+    }
 }

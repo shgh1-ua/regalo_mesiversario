@@ -101,7 +101,7 @@ function animarFisicas() {
         foto.dataset.viento = vientoActual;
 
         // C. Aplicamos la mezcla perfecta de ambos movimientos
-        foto.style.transform = `rotate(${balanceoNatural + vientoActual}deg)`;
+        foto.style.transform = `translateX(-50%) rotate(${balanceoNatural + vientoActual}deg)`;
     });
 
     requestAnimationFrame(animarFisicas);
@@ -317,13 +317,15 @@ if (canvas) {
         };
     }
 
-    class Particula {
+   class Particula {
         constructor(indice) {
             this.x = Math.random() * width;
             this.y = Math.random() * height;
             this.vx = (Math.random() - 0.5) * 1.5;
             this.vy = (Math.random() - 0.5) * 1.5;
             this.radio = Math.random() * 1.5 + 1;
+            
+            this.indice = indice; // ESTA ES LA LÍNEA CRÍTICA QUE FALTABA
 
             const t = (indice / numParticulas) * Math.PI * 2;
             const objetivo = obtenerPuntoCorazon(t, 15);
@@ -333,34 +335,29 @@ if (canvas) {
 
         actualizar() {
             if (corazonFormado) {
-                // EL LATIDO DEL CORAZÓN (Se calcula basado en el tiempo)
-                let tiempoLatido = Date.now() * 0.004; // Velocidad del latido
-                // Usamos Math.sin elevado a 4 para simular el "pum-pum" cardíaco
+                // EL LATIDO DEL CORAZÓN
+                let tiempoLatido = Date.now() * 0.004; 
                 let latido = Math.pow(Math.abs(Math.sin(tiempoLatido)), 4); 
-                let escalaDinamica = 14 + latido * 2.5; // El tamaño fluctúa entre 14 y 16.5
+                let escalaDinamica = 14 + latido * 2.5; 
                 
+                // Al tener this.indice guardado, este cálculo ya funciona
                 const t = (this.indice / numParticulas) * Math.PI * 2;
                 const objetivo = obtenerPuntoCorazon(t, escalaDinamica);
 
-                // Modo Corazón: vuelan a su posición
-                this.x += (this.objetivoX - this.x) * 0.05;
-                this.y += (this.objetivoY - this.y) * 0.05;     
+                this.x += (objetivo.x - this.x) * 0.05;
+                this.y += (objetivo.y - this.y) * 0.05;     
             } else {
-                // Modo Libre
-                // if (this.x < 0 || this.x > width) this.vx *= -1;
-                // if (this.y < 0 || this.y > height) this.vy *= -1;
-                // MODO LIBRE: Fricción para que se frenen tras la explosión
+                // MODO LIBRE: Fricción
                 this.vx *= 0.92;
                 this.vy *= 0.92;
 
-                // Si están casi paradas, les damos un movimiento mínimo (casi estáticas)
                 if (Math.abs(this.vx) < 0.1) this.vx += (Math.random() - 0.5) * 0.05;
                 if (Math.abs(this.vy) < 0.1) this.vy += (Math.random() - 0.5) * 0.05;
 
                 this.x += this.vx;
                 this.y += this.vy;
 
-                // Rebotar contra las paredes de la pantalla de forma estricta
+                // Rebotar contra las paredes
                 if (this.x < 0) { this.x = 0; this.vx *= -1; }
                 if (this.x > width) { this.x = width; this.vx *= -1; }
                 if (this.y < 0) { this.y = 0; this.vy *= -1; }
@@ -378,15 +375,6 @@ if (canvas) {
                         this.vy += (dy / distancia) * fuerza * 0.6;
                     }
                 }
-
-                this.vx *= 0.95;
-                this.vy *= 0.95;
-
-                if (Math.abs(this.vx) < 0.2) this.vx += (Math.random() - 0.5) * 0.1;
-                if (Math.abs(this.vy) < 0.2) this.vy += (Math.random() - 0.5) * 0.1;
-
-                this.x += this.vx;
-                this.y += this.vy;
             }
         }
 
@@ -410,18 +398,40 @@ if (canvas) {
             particulas[i].dibujar();
             
             // Hilos blancos sutiles entre estrellas cercanas
+            // CONEXIONES ENTRE PARTÍCULAS
             for (let j = i + 1; j < particulas.length; j++) {
                 let dx = particulas[i].x - particulas[j].x;
                 let dy = particulas[i].y - particulas[j].y;
                 let distancia = Math.sqrt(dx * dx + dy * dy);
 
-                if (distancia < 80) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(217, 4, 41, ${0.2 - (distancia / 100) * 0.2})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.moveTo(particulas[i].x, particulas[i].y);
-                    ctx.lineTo(particulas[j].x, particulas[j].y);
-                    ctx.stroke();
+                if (corazonFormado) {
+                    // MODO CORAZÓN: Hilos cruzando el interior
+                    // 1. Distancia enorme para que los hilos crucen de lado a lado
+                    if (distancia < 600) {
+                        // 2. Filtro de caos: Solo dibujamos la línea si cumple esta fórmula.
+                        // Esto selecciona ~1 de cada 13 conexiones posibles, rompiendo la perfección 
+                        // geométrica y creando un efecto de hilo enredado súper orgánico y estable.
+                        if ((i + j * 3) % 13 === 0) {
+                            ctx.beginPath();
+                            // 3. Opacidad más alta (0.25) para un brillo más intenso
+                            ctx.strokeStyle = `rgba(217, 4, 41, 0.35)`;
+                            ctx.lineWidth = 1.0; // Hilo ligeramente más grueso
+                            ctx.moveTo(particulas[i].x, particulas[i].y);
+                            ctx.lineTo(particulas[j].x, particulas[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                } else {
+                    // MODO LIBRE: Constelación blanca tenue de fondo
+                    if (distancia < 80) {
+                        ctx.beginPath();
+                        let opacidad = 0.2 - (distancia / 80) * 0.2;
+                        ctx.strokeStyle = `rgba(217, 4, 41, ${opacidad})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particulas[i].x, particulas[i].y);
+                        ctx.lineTo(particulas[j].x, particulas[j].y);
+                        ctx.stroke();
+                    }
                 }
             }
         }
