@@ -157,3 +157,134 @@ if (seccionLuces && linterna) {
         });
     });
 }
+
+// --- Generador de Partículas Flotantes ---
+function iniciarParticulas(idContenedor, arraySimbolos, intervaloMs) {
+    const contenedor = document.getElementById(idContenedor);
+    if (!contenedor) return;
+
+    setInterval(() => {
+        // Crear el elemento
+        const particula = document.createElement('div');
+        particula.classList.add('particula');
+        
+        // Elegir un símbolo aleatorio
+        const simbolo = arraySimbolos[Math.floor(Math.random() * arraySimbolos.length)];
+        particula.innerText = simbolo;
+
+        // Propiedades aleatorias (posición, tamaño, velocidad)
+        const leftPos = Math.random() * 100; // Posición horizontal (0% a 100%)
+        const tamano = Math.random() * 15 + 10; // Tamaño entre 10px y 25px
+        const duracion = Math.random() * 4 + 4; // Tardan entre 4 y 8 segundos en subir
+
+        particula.style.left = `${leftPos}%`;
+        particula.style.fontSize = `${tamano}px`;
+        particula.style.animationDuration = `${duracion}s`;
+
+        // Añadirla al DOM
+        contenedor.appendChild(particula);
+
+        // Limpiar el DOM: Borrar la partícula cuando termine su animación para no saturar la memoria
+        setTimeout(() => {
+            particula.remove();
+        }, duracion * 1000);
+
+    }, intervaloMs);
+}
+
+// 1. Partículas para la pantalla oscura (Estrellas y corazones rojos)
+iniciarParticulas('particulas-oscuras', ['✨', '❤️', '⭐'], 400);
+
+// 2. Partículas para la web clara (Corazoncitos sutiles, aparecen menos a menudo)
+iniciarParticulas('particulas-claras', ['🤍', '❤️', '💕'], 800);
+
+// --- CONSTELACIÓN DEL DESTINO (tsParticles) ---
+// Esperamos a que todo cargue para evitar errores
+window.addEventListener('DOMContentLoaded', () => {
+    
+    // Verificamos si existe el contenedor antes de iniciar
+    if (document.getElementById("tsparticles")) {
+        tsParticles.load("tsparticles", {
+            fpsLimit: 60,
+            interactivity: {
+                events: {
+                    onHover: {
+                        enable: true,
+                        mode: "grab", // Este es el modo mágico: conecta el cursor a las estrellas
+                    },
+                    onClick: {
+                        enable: true,
+                        mode: "push", // Un pequeño estallido de estrellas extra al hacer clic
+                    },
+                    resize: true,
+                },
+                modes: {
+                    grab: {
+                        distance: 250, // Distancia del "hilo"
+                        links: {
+                            opacity: 0.8,
+                            color: "#d90429" // Color del Hilo Rojo
+                        }
+                    },
+                    push: {
+                        quantity: 4, // Añade 4 estrellas en el punto de clic
+                    }
+                },
+            },
+            particles: {
+                color: { value: "#ffffff" }, // Estrellas blancas
+                links: {
+                    color: "#ffffff",
+                    distance: 120,
+                    enable: true,
+                    opacity: 0.1, // Líneas grises súper tenues entre estrellas de fondo
+                    width: 1,
+                },
+                move: {
+                    direction: "none",
+                    enable: true,
+                    outModes: { default: "bounce" }, // Rebotan suavemente en los bordes
+                    random: true,
+                    speed: 0.8, // Movimiento muy lento, flotante
+                    straight: false,
+                },
+                number: {
+                    density: { enable: true, area: 800 },
+                    value: 90, // Cantidad de estrellas en el cielo
+                },
+                opacity: {
+                    value: 0.6,
+                    animation: {
+                        enable: true, // Efecto de titilar
+                        speed: 1,
+                        minimumValue: 0.1,
+                        sync: false
+                    }
+                },
+                shape: { type: "circle" },
+                size: {
+                    value: { min: 1, max: 3 },
+                },
+            },
+            detectRetina: true,
+        });
+
+        // --- LÓGICA DEL CLÍMAX (El Clic) ---
+        const canvasContainer = document.getElementById('tsparticles');
+        const corazonFinal = document.getElementById('corazon-final');
+        const tituloConstelacion = document.querySelector('.titulo-constelacion');
+        const instruccionConstelacion = document.querySelector('.instruccion-constelacion');
+
+        canvasContainer.addEventListener('click', () => {
+            // Mostramos el corazón latiendo con el texto "TÚ Y YO"
+            corazonFinal.classList.remove('oculto-inicialmente');
+            corazonFinal.classList.add('visible-corazon');
+            
+            // Hacemos desaparecer los textos iniciales de instrucciones
+            tituloConstelacion.style.transition = "opacity 1s";
+            tituloConstelacion.style.opacity = "0";
+            instruccionConstelacion.style.transition = "opacity 1s";
+            instruccionConstelacion.style.opacity = "0";
+        });
+    }
+});

@@ -5,6 +5,10 @@
     --color-texto: #2b2d42;
 }
 
+html {
+    scroll-behavior: smooth; 
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -44,6 +48,15 @@ section {
 .contenido-inicio h2 {
     font-size: 2.5rem;
     margin-bottom: 40px;
+}
+
+.contenido-inicio {
+    position: relative;
+    z-index: 10; /* CRÍTICO: Eleva los botones y el texto */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 .oculto {
@@ -398,23 +411,37 @@ section {
     margin: 0 0 20px 0;
 }
 
-.corazon-foto {
-    width: 200px;
-    height: 200px;
+/* --- CORAZÓN COLLAGE DIVIDIDO --- */
+.corazon-collage {
+    width: 250px;
+    height: 250px;
     margin: 0 auto 30px auto;
-    /* Máscara en forma de corazón que recorta la foto de dentro */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 4px; /* Esta es la separación entre las 4 fotos */
+    /* La máscara del corazón recorta todo el grid */
     -webkit-mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
     -webkit-mask-size: 100% 100%;
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
-    mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
 }
 
-.corazon-foto img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.trozo {
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.3s ease;
 }
+
+.trozo:hover {
+    transform: scale(1.1); /* Pequeño zoom al pasar el ratón por cada foto */
+}
+
+/* Aquí configuras las 4 fotos. Si alguna no carga, he puesto colores de reserva que pegan con la web */
+.trozo-1 { background-image: url('assets/foto1.jpg'); background-color: #8c2a3e; }
+.trozo-2 { background-image: url('assets/foto2.jpg'); background-color: #d90429; }
+.trozo-3 { background-image: url('assets/foto3.jpg'); background-color: #ff4d6d; }
+.trozo-4 { background-image: url('assets/foto4.jpg'); background-color: #590d22; }
 
 .hilo-decorativo {
     position: absolute;
@@ -493,4 +520,171 @@ section {
     pointer-events: none; /* IGNORA EL RATÓN, NO TAPA CLICS */
     opacity: 0.7;         /* Hace que se fusione mejor con el fondo */
     width: 200px;         /* Ajusta el tamaño según necesites */
+}
+
+/* --- Efecto Televisión CRT (Pantalla Inicio) --- */
+.efecto-crt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Muy importante para poder hacer clic en los botones */
+    z-index: 5; /* Por encima del fondo, pero debajo de los botones */
+    /* Líneas horizontales de escaneo */
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.15) 2px,
+        rgba(0, 0, 0, 0.15) 4px
+    );
+    /* Viñeta (bordes oscurecidos) */
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.9);
+}
+
+/* --- El Menú Pegajoso --- */
+.menu-pegajoso {
+    position: sticky;
+    top: 0;
+    background-color: rgba(250, 245, 240, 0.95);
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(217, 4, 41, 0.2);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    backdrop-filter: blur(5px); /* Efecto cristal */
+}
+
+.menu-pegajoso a {
+    text-decoration: none;
+    color: var(--color-texto);
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transition: color 0.3s;
+}
+
+.menu-pegajoso a:hover {
+    color: var(--color-hilo);
+}
+
+/* --- Partículas Flotantes (JS) --- */
+.contenedor-particulas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; 
+    z-index: 0; /* CRÍTICO: Antes estaba en 1, ahora lo mandamos atrás del CRT y del contenido */
+    overflow: hidden;
+}
+
+#web-principal .contenedor-particulas {
+    position: fixed; /* En la web principal nos sigue al hacer scroll */
+}
+
+.particula {
+    position: absolute;
+    bottom: -20px; /* Empiezan por debajo de la pantalla */
+    animation: flotar-hacia-arriba linear forwards;
+    opacity: 0.6;
+}
+
+@keyframes flotar-hacia-arriba {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+
+/* --- CONSTELACIÓN DEL DESTINO --- */
+.seccion-oscura-final {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: #0b0c10; /* Azul espacial casi negro */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#tsparticles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* El ratón interactúa con esto */
+}
+
+.titulo-constelacion {
+    position: relative;
+    z-index: 2;
+    font-family: 'Dancing Script', cursive;
+    font-size: 4rem;
+    color: white;
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    margin-bottom: 10px;
+    pointer-events: none; /* Para que el ratón no se bloquee al pasar por el texto */
+}
+
+.instruccion-constelacion {
+    position: relative;
+    z-index: 2;
+    color: #ccc;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    pointer-events: none;
+}
+
+/* El clímax que se revela al hacer clic */
+#corazon-final {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    text-align: center;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
+
+.oculto-inicialmente {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.visible-corazon {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.corazon-brillante {
+    font-size: 6rem;
+    filter: drop-shadow(0 0 20px #d90429);
+    animation: latido 1.2s infinite;
+}
+
+.texto-destino {
+    font-family: 'Georgia', serif;
+    font-size: 3rem;
+    color: white;
+    margin-top: 10px;
+    letter-spacing: 10px;
+    text-shadow: 0 0 15px #d90429;
+}
+
+@keyframes latido {
+    0% { transform: scale(1); }
+    10% { transform: scale(1.15); }
+    20% { transform: scale(1); }
+    30% { transform: scale(1.15); }
+    40% { transform: scale(1); }
+    100% { transform: scale(1); }
 }

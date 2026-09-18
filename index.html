@@ -10,6 +10,10 @@
 <body>
     <!-- FASE 1: Pantalla Oscura Inicial -->
     <section id="pantalla-inicio" class="pregunta-trampa oscura">
+
+        <div class="efecto-crt"></div>
+        <div id="particulas-oscuras" class="contenedor-particulas"></div>
+
         <!-- Detalle del hilo rojo arriba -->
         <div class="hilo-decorativo arriba">
             <svg height="40" width="200" viewBox="0 0 200 40"><path d="M0,20 Q50,0 100,20 T200,20" fill="none" stroke="#d90429" stroke-width="3"/><circle cx="100" cy="20" r="5" fill="#d90429"/></svg>
@@ -18,9 +22,11 @@
         <div class="contenido-inicio">
             <h1 class="te-amo-titulo">Te amo</h1>
             
-            <div class="corazon-foto">
-                <!-- Sustituye el src por tu foto de pareja -->
-                <img src="assets/tu-foto-pareja.jpg" alt="Tú y yo">
+            <div class="corazon-collage">
+                <div class="trozo trozo-1"></div>
+                <div class="trozo trozo-2"></div>
+                <div class="trozo trozo-3"></div>
+                <div class="trozo trozo-4"></div>
             </div>
 
             <h2>Antes de empezar... ¿Me amas?</h2>
@@ -38,6 +44,14 @@
 
     <!-- FASE 2: La Web Luminosa (Oculta al principio) -->
     <main id="web-principal" class="oculto">
+
+        <div id="particulas-claras" class="contenedor-particulas"></div>
+
+        <nav class="menu-pegajoso">
+            <a href="#mensajes">NUESTRA HISTORIA</a>
+            <a href="#historia">EL HILO ROJO</a>
+            <a href="#luces-recuerdos">RECUERDOS</a>
+        </nav>
         
         <!-- SECCIÓN NUEVA: Tarjetas y Leyendas -->
         <section id="mensajes" class="seccion-clara">
@@ -255,7 +269,21 @@
             </div>
         </section>
 
+        <section id="constelacion-destino" class="seccion-oscura-final">
+            <h2 class="titulo-constelacion">Nuestro propio universo</h2>
+            <p class="instruccion-constelacion">Pasa el ratón para tejer el hilo... y haz clic para sellar el destino.</p>
+            
+            <div id="tsparticles"></div>
+            
+            <div id="corazon-final" class="oculto-inicialmente">
+                <div class="corazon-brillante">❤️</div>
+                <h1 class="texto-destino">TÚ Y YO</h1>
+            </div>
+        </section>
     </main>
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+</body>
+</html>
 </body>
 </html>
