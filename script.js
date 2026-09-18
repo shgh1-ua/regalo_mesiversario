@@ -288,3 +288,226 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// --- MOTOR FÍSICO: Constelación, Telaraña y Explosión ---
+const canvas = document.getElementById('lienzo-estrellas');
+if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particulas = [];
+    const numParticulas = 150; 
+    let corazonFormado = false; // Interruptor de estado
+
+    let mouse = { x: null, y: null, radius: 200, grabRadius: 250 };
+
+    function redimensionar() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', redimensionar);
+    redimensionar();
+
+    // Ecuación matemática del corazón
+    function obtenerPuntoCorazon(t, escala) {
+        const x = 16 * Math.pow(Math.sin(t), 3);
+        const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+        return {
+            x: (x * escala) + (width / 2),
+            y: (y * escala) + (height / 2) - 30
+        };
+    }
+
+    class Particula {
+        constructor(indice) {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 1.5;
+            this.vy = (Math.random() - 0.5) * 1.5;
+            this.radio = Math.random() * 1.5 + 1;
+
+            const t = (indice / numParticulas) * Math.PI * 2;
+            const objetivo = obtenerPuntoCorazon(t, 15);
+            this.objetivoX = objetivo.x;
+            this.objetivoY = objetivo.y;
+        }
+
+        actualizar() {
+            if (corazonFormado) {
+                // EL LATIDO DEL CORAZÓN (Se calcula basado en el tiempo)
+                let tiempoLatido = Date.now() * 0.004; // Velocidad del latido
+                // Usamos Math.sin elevado a 4 para simular el "pum-pum" cardíaco
+                let latido = Math.pow(Math.abs(Math.sin(tiempoLatido)), 4); 
+                let escalaDinamica = 14 + latido * 2.5; // El tamaño fluctúa entre 14 y 16.5
+                
+                const t = (this.indice / numParticulas) * Math.PI * 2;
+                const objetivo = obtenerPuntoCorazon(t, escalaDinamica);
+
+                // Modo Corazón: vuelan a su posición
+                this.x += (this.objetivoX - this.x) * 0.05;
+                this.y += (this.objetivoY - this.y) * 0.05;     
+            } else {
+                // Modo Libre
+                // if (this.x < 0 || this.x > width) this.vx *= -1;
+                // if (this.y < 0 || this.y > height) this.vy *= -1;
+                // MODO LIBRE: Fricción para que se frenen tras la explosión
+                this.vx *= 0.92;
+                this.vy *= 0.92;
+
+                // Si están casi paradas, les damos un movimiento mínimo (casi estáticas)
+                if (Math.abs(this.vx) < 0.1) this.vx += (Math.random() - 0.5) * 0.05;
+                if (Math.abs(this.vy) < 0.1) this.vy += (Math.random() - 0.5) * 0.05;
+
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Rebotar contra las paredes de la pantalla de forma estricta
+                if (this.x < 0) { this.x = 0; this.vx *= -1; }
+                if (this.x > width) { this.x = width; this.vx *= -1; }
+                if (this.y < 0) { this.y = 0; this.vy *= -1; }
+                if (this.y > height) { this.y = height; this.vy *= -1; }
+
+                // Atracción magnética del cursor
+                if (mouse.x != null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distancia = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distancia < mouse.radius) {
+                        let fuerza = (mouse.radius - distancia) / mouse.radius;
+                        this.vx += (dx / distancia) * fuerza * 0.6;
+                        this.vy += (dy / distancia) * fuerza * 0.6;
+                    }
+                }
+
+                this.vx *= 0.95;
+                this.vy *= 0.95;
+
+                if (Math.abs(this.vx) < 0.2) this.vx += (Math.random() - 0.5) * 0.1;
+                if (Math.abs(this.vy) < 0.2) this.vy += (Math.random() - 0.5) * 0.1;
+
+                this.x += this.vx;
+                this.y += this.vy;
+            }
+        }
+
+        dibujar() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radio, 0, Math.PI * 2);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+        }
+    }
+
+    for (let i = 0; i < numParticulas; i++) {
+        particulas.push(new Particula(i));
+    }
+
+    function animar() {
+        ctx.clearRect(0, 0, width, height);
+        
+        for (let i = 0; i < particulas.length; i++) {
+            particulas[i].actualizar();
+            particulas[i].dibujar();
+            
+            // Hilos blancos sutiles entre estrellas cercanas
+            for (let j = i + 1; j < particulas.length; j++) {
+                let dx = particulas[i].x - particulas[j].x;
+                let dy = particulas[i].y - particulas[j].y;
+                let distancia = Math.sqrt(dx * dx + dy * dy);
+
+                if (distancia < 80) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(217, 4, 41, ${0.2 - (distancia / 100) * 0.2})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.moveTo(particulas[i].x, particulas[i].y);
+                    ctx.lineTo(particulas[j].x, particulas[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        // EL EFECTO TSPARTICLES: Telaraña roja desde el cursor
+        if (mouse.x != null && !corazonFormado) {
+            for (let i = 0; i < particulas.length; i++) {
+                let dx = mouse.x - particulas[i].x;
+                let dy = mouse.y - particulas[i].y;
+                let distancia = Math.sqrt(dx * dx + dy * dy);
+
+                if (distancia < mouse.grabRadius) {
+                    ctx.beginPath();
+                    let opacidad = 1 - (distancia / mouse.grabRadius);
+                    ctx.strokeStyle = `rgba(217, 4, 41, ${opacidad})`;
+                    ctx.lineWidth = 1.5;
+                    ctx.moveTo(mouse.x, mouse.y);
+                    ctx.lineTo(particulas[i].x, particulas[i].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        requestAnimationFrame(animar);
+    }
+    animar();
+
+    const seccionConstelacion = document.getElementById('constelacion-destino');
+    const titulo = document.querySelector('.titulo-constelacion');
+    const instruccion = document.querySelector('.instruccion-constelacion');
+    const textoFinal = document.getElementById('texto-corazon-final');
+    
+    seccionConstelacion.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+    });
+
+    seccionConstelacion.addEventListener('mouseleave', () => {
+        mouse.x = null;
+        mouse.y = null;
+    });
+
+    // Clic para Formar o Explotar el corazón
+    seccionConstelacion.addEventListener('click', () => {
+        if (!corazonFormado) {
+            // FORMAR CORAZÓN
+            corazonFormado = true;
+            titulo.style.opacity = '0';
+            instruccion.style.opacity = '0';
+            
+            setTimeout(() => {
+                if(corazonFormado) {
+                    textoFinal.classList.remove('oculto-inicialmente');
+                    textoFinal.classList.add('visible-corazon');
+                }
+            }, 800);
+            
+        } else {
+            // EXPLOTAR CORAZÓN
+            corazonFormado = false;
+            textoFinal.classList.remove('visible-corazon');
+            textoFinal.classList.add('oculto-inicialmente');
+            
+            setTimeout(() => {
+                titulo.style.opacity = '1';
+                instruccion.style.opacity = '1';
+                // Cambiar el texto para dar la pista de que se puede volver a formar
+                instruccion.innerText = "El hilo rojo siempre vuelve a unirse...";
+            }, 500);
+
+            // Calculamos el centro de la pantalla para la explosión radial
+            const centroX = width / 2;
+            const centroY = height / 2;
+
+            particulas.forEach(p => {
+                // Dirección desde el centro hasta la partícula
+                let dx = p.x - centroX;
+                let dy = p.y - centroY;
+                let distanciaAlCentro = Math.sqrt(dx * dx + dy * dy) || 1; 
+                
+                // Inyectamos una fuerza brutal hacia afuera, con un poco de aleatoriedad
+                let fuerzaExplosion = Math.random() * 25 + 15; // Velocidad entre 15 y 40
+                p.vx = (dx / distanciaAlCentro) * fuerzaExplosion;
+                p.vy = (dy / distanciaAlCentro) * fuerzaExplosion;
+            });
+        }
+    });
+}
