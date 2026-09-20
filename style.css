@@ -12,7 +12,8 @@ html {
 body {
     margin: 0;
     padding: 0;
-    background-color: var(--color-fondo);
+    /* background-color: var(--color-fondo); */
+    background-color: #000;
     color: var(--color-texto);
     font-family: 'Georgia', serif;
     overflow-x: hidden;
@@ -67,6 +68,7 @@ section {
 }
 
 #web-principal {
+    background-color: var(--color-fondo); /* Le devolvemos el color crema solo a la web */
     transition: opacity 1.5s ease-in;
 }
 
@@ -534,7 +536,7 @@ section {
     border-radius: 20px;
 }
 .hilo-rojo, .contenedor-hilo-svg {
-    top: 180px; /* Empuja el inicio de la línea hacia abajo */
+    top: 260px; /* Empuja el inicio de la línea hacia abajo */
 }
 
 /* --- Efecto Linterna --- */
@@ -979,6 +981,39 @@ section {
     transform: translate(-50%, -50%);
 }
 
+/* --- Animación de apagar TV (CRT) --- */
+.apagar-crt {
+    /* La animación dura 0.6s y se queda en el último frame (forwards) */
+    animation: tv-off 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    transform-origin: center center;
+}
+
+@keyframes tv-off {
+    0% { transform: scale(1, 1); opacity: 1; filter: brightness(1); }
+    /* Se aplasta en una línea horizontal muy brillante */
+    50% { transform: scale(1, 0.01); opacity: 1; filter: brightness(5); }
+    /* Se encoge a un punto */
+    80% { transform: scale(0.01, 0.01); opacity: 1; filter: brightness(5); }
+    /* Desaparece */
+    100% { transform: scale(0, 0); opacity: 0; filter: brightness(0); }
+}
+
+/* --- Títulos de "El destino" y "Nuestro hilo rojo" --- */
+#historia .subtitulo {
+    font-size: 1.5rem; /* Letra mucho más grande */
+    letter-spacing: 5px;
+    color: #a89f9e;
+}
+
+#historia .titulo-seccion {
+    font-size: 4rem; /* Letra gigante */
+    font-family: 'Dancing Script', cursive; /* Le damos la tipografía romántica y elegante */
+    color: var(--color-hilo); /* Lo pintamos de rojo */
+    margin-top: -10px;
+    margin-bottom: 100px;
+    z-index: 2;
+}
+
 /* --- ADAPTACIÓN PARA MÓVILES --- */
 @media (max-width: 768px) {
     
@@ -1062,4 +1097,34 @@ section {
 /* Ajuste automático para las fotos colgadas pequeñitas */
 .polaroid-mini .foto-real {
     height: 100px; 
+}
+
+/* --- Decoraciones y Mensajes en el Hilo Rojo --- */
+.adorno-mensaje-wrapper {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 15; /* Asegura que pasen por encima del hilo SVG principal */
+    pointer-events: none; /* Para no bloquear clics en la web */
+    width: 250px;
+}
+
+.adorno-img {
+    width: 120px; /* Puedes hacerlas más grandes o pequeñas según la imagen */
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(217, 4, 41, 0.3)); /* Sombra roja sutil */
+}
+
+.adorno-texto {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    color: var(--color-hilo);
+    text-align: center;
+    margin-top: 5px;
+    /* Un pequeño halo color crema para que el texto se lea perfecto si cruza una foto o línea */
+    background: radial-gradient(circle, rgba(250, 245, 240, 0.9) 30%, rgba(250, 245, 240, 0) 80%);
+    padding: 10px;
 }

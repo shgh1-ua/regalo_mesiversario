@@ -24,15 +24,15 @@ btnNo.addEventListener('touchstart', (e) => {
     moverBoton();
 });
 
-// Interacción del botón Sí (Transición de pantalla)
+// Interacción del botón Sí (Transición de pantalla con efecto CRT)
 btnSi.addEventListener('click', () => {
-    // Desvanecemos la pantalla inicial
-    pantallaInicio.style.opacity = '0';
+    // Añadimos la clase que dispara la animación de TV antigua
+    pantallaInicio.classList.add('apagar-crt');
     
     setTimeout(() => {
         // Ocultamos la pantalla inicial del DOM
         pantallaInicio.classList.add('oculto');
-        pantallaInicio.style.display = 'none'; // ESTO ELIMINA EL ESPACIO BLANCO
+        pantallaInicio.style.display = 'none'; 
         
         // Mostramos la web principal
         webPrincipal.classList.remove('oculto');
@@ -40,7 +40,7 @@ btnSi.addEventListener('click', () => {
         
         // Hacemos scroll suave a la sección de mensajes
         document.getElementById('mensajes').scrollIntoView({ behavior: 'smooth' });
-    }, 1000); // Espera 1 segundo a que termine el fade-out
+    }, 700); // 700 milisegundos es lo que tarda la animación en completarse
 });
 
 // Lógica de los regalos ocultos
