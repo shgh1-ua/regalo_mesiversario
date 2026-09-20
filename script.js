@@ -62,11 +62,16 @@ regalos.forEach(regalo => {
             if (regalosEncontrados === slots.length) {
                 // Hacemos visible la sección oculta
                 const seccionFinal = document.getElementById('seccion-final');
+                const videoSorpresa = document.getElementById('video-sorpresa');
                 seccionFinal.style.display = 'flex'; 
                 
                 setTimeout(() => {
                     alert("¡Has encontrado todos los vales sorpresa! Se ha desbloqueado algo especial al final del hilo...");
                     seccionFinal.scrollIntoView({ behavior: 'smooth' });
+                    // Dispara la reproducción del vídeo en cuanto el usuario cierra el alert
+                    if (videoSorpresa) {
+                        videoSorpresa.play();
+                    }
                 }, 500);
             }
         }
