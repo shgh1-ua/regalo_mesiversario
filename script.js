@@ -48,6 +48,17 @@ const regalos = document.querySelectorAll('.regalo-oculto');
 const slots = document.querySelectorAll('.slot');
 let regalosEncontrados = 0;
 
+// Aleatorizar posiciones de los regalos ocultos a lo largo del Timeline
+regalos.forEach(regalo => {
+    // Top: entre 5% y 95% de la altura total de la sección
+    const randomTop = Math.random() * 90 + 5; 
+    // Left: entre 10% y 85% del ancho para no salirse de la pantalla
+    const randomLeft = Math.random() * 75 + 10;
+    
+    regalo.style.top = `${randomTop}%`;
+    regalo.style.left = `${randomLeft}%`;
+});
+
 regalos.forEach(regalo => {
     regalo.addEventListener('click', function() {
         const emoji = this.textContent;
@@ -591,5 +602,23 @@ if (audio && btnPlay) {
         btnPlay.innerText = '▶️';
         progresoActual.style.width = '0%';
         puntoProgreso.style.left = '0%';
+    });
+}
+
+// --- Menú Hamburguesa para Móvil ---
+const btnMenu = document.getElementById('btn-menu-movil');
+const contenedorEnlaces = document.getElementById('enlaces-menu');
+const enlaces = contenedorEnlaces.querySelectorAll('a');
+
+if (btnMenu) {
+    btnMenu.addEventListener('click', () => {
+        contenedorEnlaces.classList.toggle('abierto');
+    });
+
+    // Cierra el menú al pulsar una opción
+    enlaces.forEach(enlace => {
+        enlace.addEventListener('click', () => {
+            contenedorEnlaces.classList.remove('abierto');
+        });
     });
 }

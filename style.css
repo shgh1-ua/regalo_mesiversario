@@ -208,6 +208,10 @@ section {
 
 .hito-izquierda { align-self: flex-start; margin-left: 5%; }
 .hito-derecha { align-self: flex-end; margin-right: 5%; }
+.hito-centro { 
+    align-self: center; 
+    margin: 60px 0; /* Un poco más de margen para darle protagonismo */
+}
 
 .foto-placeholder {
     width: 100%;
@@ -220,6 +224,15 @@ section {
     margin-bottom: 10px;
     font-family: sans-serif;
     color: #888;
+}
+
+.adorno-hilo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* Clava el centro de la imagen en el centro de la pantalla */
+    width: 50px; /* Ajusta el grosor de la decoración */
+    z-index: 1; /* A la misma altura que el hilo rojo */
+    pointer-events: none;
 }
 
 /* Formato Polaroid para el Timeline */
@@ -403,6 +416,57 @@ section {
     padding: 20px;
 }
 
+/* --- Sección Final y GIFs --- */
+.contenedor-video-sorpresa {
+    position: relative; /* ¡ESTA LÍNEA ES LA CLAVE PARA QUE NO SE ESCAPEN! */
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto; /* Centra el bloque entero en la pantalla */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#video-sorpresa {
+    width: 100%;
+    position: relative;
+    z-index: 10; /* El vídeo siempre por encima para poder hacer clic */
+    /* ... mantén tus otros estilos del vídeo aquí ... */
+}
+
+.gif-tonto {
+    position: absolute;
+    width: 80px; 
+    z-index: 5; 
+    pointer-events: none; 
+}
+
+/* Posiciones exactas usando píxeles para que no se escapen */
+/* Posiciones muy alejadas del borde para que floten en el espacio en blanco */
+.gif-1 {
+    top: -100px;
+    left: -250px;
+    transform: rotate(-25deg);
+}
+
+.gif-2 {
+    bottom: -100px;
+    right: -250px;
+    transform: rotate(20deg);
+}
+
+.gif-3 {
+    top: -200px;
+    right: -400px;
+    transform: rotate(15deg);
+}
+
+.gif-4 {
+    bottom: -200px;
+    left: -250px;
+    transform: rotate(-15deg);
+}
+
 /* --- Pantalla Inicio --- */
 .te-amo-titulo {
     font-family: 'Dancing Script', cursive;
@@ -544,31 +608,47 @@ section {
 }
 
 /* --- El Menú Pegajoso --- */
+/* --- El Menú Pegajoso --- */
 .menu-pegajoso {
     position: sticky;
     top: 0;
-    background-color: rgba(250, 245, 240, 0.95);
-    padding: 15px 0;
+    background-color: var(--color-hilo); /* Fondo rojo */
+    padding: 15px 20px;
     display: flex;
     justify-content: center;
-    gap: 30px;
+    align-items: center;
     z-index: 1000;
-    border-bottom: 1px solid rgba(217, 4, 41, 0.2);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    backdrop-filter: blur(5px); /* Efecto cristal */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Sombra un poco más marcada */
+}
+
+/* Contenedor de los enlaces */
+.enlaces-container {
+    display: flex;
+    gap: 30px;
 }
 
 .menu-pegajoso a {
     text-decoration: none;
-    color: var(--color-texto);
+    color: white; /* Letras blancas para contrastar con el rojo */
     font-size: 0.85rem;
     font-weight: bold;
     letter-spacing: 2px;
-    transition: color 0.3s;
+    transition: color 0.3s, transform 0.2s;
 }
 
 .menu-pegajoso a:hover {
-    color: var(--color-hilo);
+    color: #ffccd5; /* Un tono rosita claro al pasar el ratón */
+    transform: scale(1.05);
+}
+
+/* Botón hamburguesa (oculto en PC) */
+.hamburguesa {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
 }
 
 /* --- Partículas Flotantes (JS) --- */
@@ -902,16 +982,34 @@ section {
 /* --- ADAPTACIÓN PARA MÓVILES --- */
 @media (max-width: 768px) {
     
-    /* 1. Menú Sticky en Móvil */
+    /* Menú desplegable para móvil */
     .menu-pegajoso {
-        gap: 8px; /* Reduce el espacio entre botones */
-        padding: 10px 5px;
-        flex-wrap: wrap; /* Permite que los enlaces bajen de línea si no caben */
+        justify-content: flex-end; /* Pone el botón a la derecha */
     }
-    
-    .menu-pegajoso a {
-        font-size: 0.65rem; /* Letra más pequeña */
-        letter-spacing: 1px;
+
+    .hamburguesa {
+        display: block; /* Mostramos el botón */
+    }
+
+    .enlaces-container {
+        display: none; /* Ocultamos los enlaces por defecto */
+        flex-direction: column;
+        position: absolute;
+        top: 100%; /* Justo debajo de la barra roja */
+        left: 0;
+        width: 100%;
+        background-color: var(--color-hilo);
+        padding: 15px 0;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+    }
+
+    .enlaces-container.abierto {
+        display: flex; /* Clase que añadirá JS para mostrar el menú */
+    }
+
+    .enlaces-container a {
+        padding: 15px 0;
+        font-size: 1rem;
     }
 
     /* 2. Fotos centradas en Móvil */
@@ -943,6 +1041,11 @@ section {
     
     .polaroid-mini p {
         font-size: 0.7rem;
+    }
+
+    /* Ocultar los GIFs en móvil para que no generen scroll horizontal */
+    .gif-tonto {
+        display: none;
     }
 }
 

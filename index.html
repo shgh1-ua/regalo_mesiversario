@@ -48,10 +48,14 @@
         <div id="particulas-claras" class="contenedor-particulas"></div>
 
         <nav class="menu-pegajoso">
-            <a href="#mensajes">NUESTRA HISTORIA</a>
-            <a href="#historia">EL HILO ROJO</a>
-            <a href="#luces-recuerdos">RECUERDOS</a>
-            <a href="#constelacion-destino">NUESTRO UNIVERSO</a> <!-- NUEVO APARTADO -->
+            <button id="btn-menu-movil" class="hamburguesa">☰</button>
+            
+            <div id="enlaces-menu" class="enlaces-container">
+                <a href="#mensajes">NUESTRA HISTORIA</a>
+                <a href="#historia">EL HILO ROJO</a>
+                <a href="#luces-recuerdos">RECUERDOS</a>
+                <a href="#constelacion-destino">NUESTRO UNIVERSO</a>
+            </div>
         </nav>
         
         <!-- SECCIÓN NUEVA: Tarjetas y Leyendas -->
@@ -161,6 +165,10 @@
                 <p>Yo andaba por ahí, con los mismos rodillazos, esperando por ti.</p>
             </div>
 
+            <img src="assets/nudo.png" class="adorno-hilo" style="top: 15%;">
+            <img src="assets/lazo.png" class="adorno-hilo" style="top: 45%;">
+            <img src="assets/enredo.png" class="adorno-hilo" style="top: 80%;">
+
             <div class="hito hito-izquierda polaroid" style="transform: rotate(2deg);">
                 <img src="assets/foto3-ninya.jpg" class="foto-real" alt="Foto niña Val">
                 <p>Creciendo sin saber que ya estábamos conectados.</p>
@@ -170,6 +178,16 @@
                 <p>A kilómetros de distancia, pero en el mismo camino.</p>
             </div>
 
+            <!-- Nuevas fotos de niños -->
+            <div class="hito hito-izquierda polaroid" style="transform: rotate(2deg);">
+                <img src="assets/nino-extra-1.jpg" class="foto-real" alt="Tú de pequeño">
+                <p>Nuevos recuerdos de cuando eras un renacuajo.</p>
+            </div>
+            <div class="hito hito-derecha polaroid" style="transform: rotate(-3deg);">
+                <img src="assets/nino-extra-2.jpeg" class="foto-real" alt="Yo de pequeña">
+                <p>Y yo haciendo de las mías.</p>
+            </div>
+
             <div class="hito hito-izquierda polaroid" style="transform: rotate(-4deg);">
                 <img src="assets/foto4-ninya.jpg" class="foto-real" alt="Foto niña Val">
                 <p>Empezando a descubrir quiénes éramos.</p>
@@ -177,7 +195,7 @@
             <div class="hito hito-derecha polaroid" style="transform: rotate(3deg);">
                 <img src="assets/foto11-ninyo.jpeg" class="foto-real" alt="Foto niño Sebas">
                 <p>Con pintas que es mejor no recordar demasiado.</p>
-            </div>
+            </div>            
 
             <div class="hito hito-izquierda polaroid" style="transform: rotate(3deg);">
                 <img src="assets/foto5-ninya.jpg" class="foto-real" alt="Foto niña Val">
@@ -206,6 +224,16 @@
                 <p>A punto de coincidir.</p>
             </div>
 
+            <!-- Dos fotos extra al final de la línea temporal -->
+            <div class="hito hito-izquierda polaroid" style="transform: rotate(-2deg);">
+                <img src="assets/reciente-1.jpeg" class="foto-real" alt="Nosotros">
+                <p>Cada vez más cerca.</p>
+            </div>
+            <div class="hito hito-derecha polaroid" style="transform: rotate(4deg);">
+                <img src="assets/reciente-2.jpg" class="foto-real" alt="Nosotros">
+                <p>Construyendo lo nuestro.</p>
+            </div>
+
             <div class="hito hito-izquierda polaroid" style="transform: rotate(-3deg);">
                 <img src="assets/foto8_19anyos.png" class="foto-real" alt="Foto tuya 20 años">
                 <p>La persona de la que me iba a enamorar.</p>
@@ -223,6 +251,16 @@
                 <img src="assets/foto16-22anyos.jpg" class="foto-real" alt="Nuestra primera foto">
                 <p>Para no soltarse nunca.</p>
             </div>
+
+            <!-- LA GRAN FOTO FINAL CENTRADA -->
+             <div class="hito hito-centro polaroid" style="transform: rotate(0deg);">
+                <img src="assets/foto-primera.jpg" class="foto-real" alt="Nuestra foto favorita">
+                <p>El momento en el que supe que eras tú.</p>
+            </div>
+            <div class="hito hito-centro polaroid" style="transform: rotate(0deg);">
+                <img src="assets/foto-favorita.jpg" class="foto-real" alt="Nuestra foto favorita">
+                <p>El momento en el que supe que eras tú.</p>
+            </div>
         </section>
 
         <!-- SECCIÓN NUEVA: Hilo con Luces y Recuerdos -->
@@ -239,24 +277,24 @@
                 <div class="foto-colgada foto-lateral" style="left: 20%; animation-delay: 0s;">
                     <div class="pinza"></div>
                     <div class="polaroid-mini">
-                        <div class="foto-placeholder">[Selfie 1]</div>
-                        <p>Nuestro primer viaje</p>
+                        <img src="assets/selfie-1.png" class="foto-real" alt="Selfie 1">
+                        <p>Nuestra primera videollamada</p>
                     </div>
                 </div>
                 
                 <div class="foto-colgada foto-central" style="left: 50%; animation-delay: 0.5s;">
                     <div class="pinza"></div>
                     <div class="polaroid-mini">
-                        <div class="foto-placeholder">[Selfie 2]</div>
-                        <p>Aquel día de lluvia</p>
+                        <img src="assets/selfie-2.jpg" class="foto-real" alt="Selfie 2">
+                        <p>Cuando fuimos dueños del supermercado</p>
                     </div>
                 </div>
 
                 <div class="foto-colgada foto-lateral" style="left: 80%; animation-delay: 1s;">
                     <div class="pinza"></div>
                     <div class="polaroid-mini">
-                        <div class="foto-placeholder">[Selfie 3]</div>
-                        <p>Mi lugar favorito</p>
+                        <img src="assets/selfie-3.jpg" class="foto-real" alt="Selfie 3">
+                        <p>Evidencia de nuestro primer viaje juntos</p>
                     </div>
                 </div>
             </div>
@@ -271,7 +309,7 @@
                 <div class="foto-colgada foto-lateral" style="left: 20%; animation-delay: 0.2s;">
                     <div class="pinza"></div>
                     <div class="polaroid-mini">
-                        <div class="foto-placeholder">[Selfie 4]</div>
+                        <img src="assets/selfie-4.jpg" class="foto-real" alt="Selfie 4">
                         <p>Una noche especial</p>
                     </div>
                 </div>
@@ -279,7 +317,7 @@
                 <div class="foto-colgada foto-central" style="left: 50%; animation-delay: 0.7s;">
                     <div class="pinza"></div>
                     <div class="polaroid-mini">
-                        <div class="foto-placeholder">[Selfie 5]</div>
+                        <img src="assets/selfie-5.png" class="foto-real" alt="Selfie 5">
                         <p>Haciendo locuras</p>
                     </div>
                 </div>
@@ -287,7 +325,7 @@
                 <div class="foto-colgada foto-lateral" style="left: 80%; animation-delay: 1.2s;">
                     <div class="pinza"></div>
                     <div class="polaroid-mini">
-                        <div class="foto-placeholder">[Selfie 6]</div>
+                        <img src="assets/selfie-6.jpg" class="foto-real" alt="Selfie 6">
                         <p>Simplemente tú</p>
                     </div>
                 </div>
@@ -303,10 +341,16 @@
             <div class="slot" id="slot-3"></div>
         </div>
 
-        <!-- CÁMBIALO POR ESTA LÍNEA -->
+        <!-- CÁMBIALO POR ESTA LÍNEA  style="display: none;"-->
         <section class="final-visualizer" id="seccion-final" style="display: none;">
-            <!-- controls permite al usuario pausar o subir volumen, playsinline es vital para móviles -->
-            <video id="video-sorpresa" src="assets/video.mp4" playsinline controls></video>
+            <div class="contenedor-video-sorpresa">
+                <img src="assets/gif-1.gif" class="gif-tonto gif-1">
+                <img src="assets/gif-2.gif" class="gif-tonto gif-2">
+                <img src="assets/gif-3.gif" class="gif-tonto gif-3">
+                <img src="assets/gif-4.gif" class="gif-tonto gif-4">
+                <video id="video-sorpresa" src="assets/video.mp4" playsinline controls></video>
+            
+            </div> 
         </section>
 
         <section id="constelacion-destino" class="seccion-oscura-final">
