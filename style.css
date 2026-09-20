@@ -452,7 +452,7 @@ section {
 }
 
 .gif-2 {
-    bottom: -100px;
+    bottom: -50px;
     right: -250px;
     transform: rotate(20deg);
 }
@@ -464,7 +464,7 @@ section {
 }
 
 .gif-4 {
-    bottom: -200px;
+    bottom: -50px;
     left: -250px;
     transform: rotate(-15deg);
 }
@@ -1014,76 +1014,6 @@ section {
     z-index: 2;
 }
 
-/* --- ADAPTACIÓN PARA MÓVILES --- */
-@media (max-width: 768px) {
-    
-    /* Menú desplegable para móvil */
-    .menu-pegajoso {
-        justify-content: flex-end; /* Pone el botón a la derecha */
-    }
-
-    .hamburguesa {
-        display: block; /* Mostramos el botón */
-    }
-
-    .enlaces-container {
-        display: none; /* Ocultamos los enlaces por defecto */
-        flex-direction: column;
-        position: absolute;
-        top: 100%; /* Justo debajo de la barra roja */
-        left: 0;
-        width: 100%;
-        background-color: var(--color-hilo);
-        padding: 15px 0;
-        box-shadow: 0 10px 15px rgba(0,0,0,0.2);
-    }
-
-    .enlaces-container.abierto {
-        display: flex; /* Clase que añadirá JS para mostrar el menú */
-    }
-
-    .enlaces-container a {
-        padding: 15px 0;
-        font-size: 1rem;
-    }
-
-    /* 2. Fotos centradas en Móvil */
-    /* Sobrescribimos el 'left' manual del HTML para usar Flexbox y repartir el espacio */
-    .cuerda-luces {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        width: 100%;
-        padding-top: 20px;
-    }
-    
-    .foto-colgada {
-        position: relative !important;
-        left: 0 !important;
-        top: 0 !important; /* Añadimos esto para resetear la curva en móviles */
-        transform: none !important; 
-        margin: 0 5px;
-    }
-
-    .polaroid-mini {
-        width: 90px; /* Hace las fotos un pelín más compactas para que quepan 3 */
-        padding: 6px;
-    }
-    
-    .foto-placeholder {
-        height: 90px;
-    }
-    
-    .polaroid-mini p {
-        font-size: 0.7rem;
-    }
-
-    /* Ocultar los GIFs en móvil para que no generen scroll horizontal */
-    .gif-tonto {
-        display: none;
-    }
-}
-
 /* Estilos para las fotos reales una vez insertadas */
 .foto-real {
     width: 100%;
@@ -1127,4 +1057,127 @@ section {
     /* Un pequeño halo color crema para que el texto se lea perfecto si cruza una foto o línea */
     background: radial-gradient(circle, rgba(250, 245, 240, 0.9) 30%, rgba(250, 245, 240, 0) 80%);
     padding: 10px;
+}
+
+/* --- Mensaje Final del Universo --- */
+#texto-corazon-final {
+    flex-direction: column; /* Obliga a apilar el h1 y el p verticalmente */
+}
+
+.mensaje-final-universo {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6rem;
+    color: #ffccd5; /* Mismo tono rosado sutil que la "Y" */
+    text-align: center;
+    margin-top: 20px;
+    width: 140%; /* Permite que el texto sobresalga un poco del gradiente circular */
+    text-shadow: 0 0 10px rgba(217, 4, 41, 0.8);
+    opacity: 0;
+    /* La animación tiene 1s de retraso para que aparezca justo después del TÚ Y YO */
+    animation: aparecer-suave 2s ease-in-out 1.2s forwards; 
+}
+
+@keyframes aparecer-suave {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- ADAPTACIÓN PARA MÓVILES --- */
+@media (max-width: 768px) {
+    /* Previene que los paddings rompan el ancho de la pantalla */
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+    /* Menú desplegable para móvil */
+    .menu-pegajoso {
+        justify-content: flex-end; /* Pone el botón a la derecha */
+    }
+
+    .hamburguesa {
+        display: block; /* Mostramos el botón */
+    }
+
+    .enlaces-container {
+        display: none; /* Ocultamos los enlaces por defecto */
+        flex-direction: column;
+        position: absolute;
+        align-items: center;
+        top: 100%; /* Justo debajo de la barra roja */
+        left: 0;
+        width: 100%;
+        background-color: var(--color-hilo);
+        padding: 15px 0;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+    }
+
+    .enlaces-container.abierto {
+        display: flex; /* Clase que añadirá JS para mostrar el menú */
+    }
+
+    .enlaces-container a {
+        padding: 15px 0;
+        font-size: 1rem;
+    }
+
+    /* 2. Fotos y Cuerda adaptadas a Móvil */
+    .cuerda-luces {
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+        border-radius: 0; /* Quitamos la curva, ahora es una cuerda recta y tensa */
+        border-bottom: none; 
+        border-top: 3px solid #444; /* La línea la dibujamos por arriba */
+        padding-top: 0;
+        height: auto;
+    }
+    
+    .foto-colgada {
+        position: relative !important;
+        left: 0 !important;
+        top: -10px !important; /* Sube la pinza justo a la altura de la cuerda recta */
+        transform: none !important; 
+        margin: 0 5px;
+    }
+
+    .luz-extrema, .luz-media, .luz-centro {
+        top: -7px !important; /* Alineamos los puntos de luz sobre la cuerda recta */
+    }
+
+    .polaroid-mini {
+        width: 90px; /* Hace las fotos un pelín más compactas para que quepan 3 */
+        padding: 6px;
+    }
+    
+    .foto-placeholder {
+        height: 90px;
+    }
+    
+    .polaroid-mini p {
+        font-size: 0.7rem;
+    }
+
+    /* Ocultar los GIFs en móvil para que no generen scroll horizontal */
+    .gif-tonto {
+        display: none;
+    }
+
+    .seccion-luces {
+        position: relative; 
+        z-index: 30; 
+        padding: 180px 20px 150px 20px;
+        background-color: #1a1a1a; 
+        color: white;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    /* Ajuste del título y la sección en móvil */
+    .seccion-luces {
+        padding-top: 100px;
+    }
+    
+    .titulo-artistico {
+        margin-bottom: 40px; 
+        font-size: 3.2rem; 
+    }
 }

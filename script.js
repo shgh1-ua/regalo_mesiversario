@@ -483,6 +483,7 @@ if (canvas) {
     const titulo = document.querySelector('.titulo-constelacion');
     const instruccion = document.querySelector('.instruccion-constelacion');
     const textoFinal = document.getElementById('texto-corazon-final');
+    const cajaTextos = document.getElementById('textos-constelacion'); // Apuntamos a la caja entera
     
     seccionConstelacion.addEventListener('mousemove', (e) => {
         const rect = canvas.getBoundingClientRect();
@@ -500,8 +501,7 @@ if (canvas) {
         if (!corazonFormado) {
             // FORMAR CORAZÓN
             corazonFormado = true;
-            titulo.style.opacity = '0';
-            instruccion.style.opacity = '0';
+            if (cajaTextos) cajaTextos.style.opacity = '0'; // Oculta toda la caja a la vez
             
             setTimeout(() => {
                 if(corazonFormado) {
@@ -517,8 +517,7 @@ if (canvas) {
             textoFinal.classList.add('oculto-inicialmente');
             
             setTimeout(() => {
-                titulo.style.opacity = '1';
-                instruccion.style.opacity = '1';
+                if (cajaTextos) cajaTextos.style.opacity = '1'; // Vuelve a mostrar todo
                 // Cambiar el texto para dar la pista de que se puede volver a formar
                 instruccion.innerText = "El hilo rojo siempre vuelve a unirse...";
             }, 500);
@@ -620,5 +619,32 @@ if (btnMenu) {
         enlace.addEventListener('click', () => {
             contenedorEnlaces.classList.remove('abierto');
         });
+    });
+}
+
+// --- Lógica de la Carta Final (Regalo de Voz) ---
+const btnAbrirRegalo = document.getElementById('btn-abrir-regalo');
+const modalCarta = document.getElementById('modal-carta');
+const btnCerrarCarta = document.getElementById('btn-cerrar-carta');
+const audioMensaje = document.getElementById('audio-mensaje');
+
+if (btnAbrirRegalo && modalCarta) {
+    // Abrir la carta
+    btnAbrirRegalo.addEventListener('click', () => {
+        modalCarta.classList.add('abierto');
+    });
+
+    // Cerrar desde la X
+    btnCerrarCarta.addEventListener('click', () => {
+        modalCarta.classList.remove('abierto');
+        if (audioMensaje) audioMensaje.pause();
+    });
+
+    // Cerrar haciendo clic en el fondo oscuro
+    modalCarta.addEventListener('click', (e) => {
+        if (e.target === modalCarta) {
+            modalCarta.classList.remove('abierto');
+            if (audioMensaje) audioMensaje.pause();
+        }
     });
 }
