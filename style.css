@@ -107,7 +107,7 @@ section {
    ------------------------------------------- */
 .seccion-clara {
     padding: 80px 20px;
-    background-color: #faf5f0;
+    background-color: rgba(250, 245, 240, 0.7);
     text-align: center;
 }
 
@@ -291,7 +291,9 @@ section {
    HILO CON LUCES Y FOTOS COLGADAS
    ------------------------------------------- */
 .seccion-luces {
-    padding: 100px 20px;
+    position: relative; 
+    /* Cambiamos el padding superior de 100px a 180px para bajar el título */
+    padding: 180px 20px 150px 20px;
     background-color: #1a1a1a; 
     color: white;
     overflow: hidden;
@@ -303,30 +305,18 @@ section {
     width: 100%;
     max-width: 900px;
     height: 150px;
-    margin: 50px auto;
+    /* Reducimos el margen superior a 0px (antes estaba en 50px) para acercarla al título */
+    margin: 0 auto 50px auto;
     border-bottom: 3px solid #444; 
     border-radius: 0 0 50% 50%; 
 }
-
-/* .cuerda-luces::before, .cuerda-luces::after {
-    content: '';
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: #ffd700;
-    border-radius: 50%;
-    box-shadow: 0 0 10px 5px rgba(255, 215, 0, 0.5);
-    bottom: -6px;
-}
-.cuerda-luces::before { left: 25%; }
-.cuerda-luces::after { left: 75%; } */
 
 /* Nuevo título artístico */
 .titulo-artistico {
     font-family: 'Dancing Script', cursive;
     font-size: 4rem;
     color: #ffd700; 
-    margin-bottom: 60px;
+    margin-bottom: 0px;
     font-weight: 700;
 }
 
@@ -338,11 +328,17 @@ section {
     background: #fffdf2;
     border-radius: 50%;
     box-shadow: 0 0 12px 6px rgba(255, 215, 0, 0.6);
+    transform: translateX(-50%); /* Centra el punto luminoso exactamente en su porcentaje */
 }
+
+/* Alturas matemáticas exactas para seguir la curva de la cuerda */
+.luz-extrema { top: 118px; }
+.luz-media   { top: 141px; }
+.luz-centro  { top: 148px; }
 
 /* Separación para la segunda hilera */
 .cuerda-secundaria {
-    margin-top: 250px; 
+    margin-top: 120px; 
 }
 
 /* Modificamos el título de la sección Timeline para que coincida con tu diseño */
@@ -359,10 +355,14 @@ section {
 
 .foto-colgada {
     position: absolute;
-    bottom: -120px; 
+    bottom: auto; /* QUITAR el bottom: -120px que las forzaba a estar en línea recta */
     transform-origin: top center; 
-    animation: balanceo 4s ease-in-out infinite alternate;
+    z-index: 20;
 }
+
+/* Alturas exactas para que la pinza quede encajada en el hilo rojo */
+.foto-lateral { top: 133px; }
+.foto-central { top: 148px; }
 
 .pinza {
     width: 10px;
@@ -624,7 +624,7 @@ section {
 }
 
 #tsparticles {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -736,10 +736,16 @@ section {
 
 /* --- CORRECCIÓN DE CAPAS (Z-INDEX) --- */
 /* Evita que los hilos pasen por encima de las fotos y los mensajes */
-.foto-colgada,
+
 .seccion-clara,
 .grid-tarjetas {
     position: relative;
+    z-index: 20; 
+}
+
+.foto-colgada {
+    /* IMPORTANTE: Separamos esta clase para no inyectarle 'position: relative', 
+       así conserva su 'position: absolute' original y se queda pegada a la cuerda */
     z-index: 20; 
 }
 
@@ -748,6 +754,149 @@ section {
     background-color: white; 
     position: relative;
     z-index: 21;
+}
+
+/* --- WIDGETS: CONTADOR Y MÚSICA --- */
+.widgets-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 70px; /* Separación con el título de Nuestra Historia */
+}
+
+/* 1. Contador */
+.contador-amor {
+    text-align: center;
+    color: var(--color-hilo);
+}
+.fecha-inicio {
+    font-size: 3rem;
+    margin: 0;
+    letter-spacing: 2px;
+}
+.etiqueta-juntos {
+    font-size: 0.9rem;
+    color: #555;
+    letter-spacing: 2px;
+    margin: 10px 0;
+    font-weight: bold;
+}
+.tiempo-juntos {
+    font-size: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--color-texto);
+    font-variant-numeric: tabular-nums; /* Evita que los números "tiemblen" al cambiar */
+}
+.tiempo-juntos span {
+    min-width: 70px; /* Mantiene el ancho fijo para que no baile la estructura */
+}
+.etiquetas-tiempo {
+    display: flex;
+    justify-content: center;
+    gap: 50px; 
+    font-size: 0.75rem;
+    color: #a89f9e;
+    margin-top: 5px;
+    letter-spacing: 1px;
+}
+
+/* 2. Reproductor de Música */
+.reproductor-musica {
+    background: #1c1c1e;
+    border-radius: 20px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 340px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    pointer-events: auto; /* Para que se pueda hacer clic si decides darle función más adelante */
+}
+.portada-album {
+    width: 60px;
+    height: 60px;
+    /* Pon aquí el nombre de la foto de la portada, por ejemplo: portada-album.jpg */
+    background: url('assets/portada-album.jpg') center/cover, linear-gradient(135deg, #1c1c1e, #333);
+    border-radius: 10px;
+}
+.info-musica {
+    flex: 1;
+}
+.titulo-cancion {
+    margin: 0 0 12px 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+.barra-progreso {
+    height: 3px;
+    background: #444;
+    border-radius: 2px;
+    position: relative;
+    margin-bottom: 12px;
+}
+.progreso-actual {
+    width: 35%; /* Simula por dónde va la canción */
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+}
+.punto-progreso {
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+}
+.controles-musica {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    font-size: 1.2rem;
+}
+.btn-play {
+    background: white;
+    color: #1c1c1e;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer; /* Hace que parezca un botón real */
+    transition: transform 0.1s;
+}
+
+.btn-play:active {
+    transform: scale(0.9); /* Pequeño efecto de pulsación */
+}
+
+.progreso-actual {
+    width: 0%; /* Ahora arranca en 0 y el JS lo mueve */
+    height: 100%;
+    background: white;
+    border-radius: 2px;
+}
+
+.punto-progreso {
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 0%; /* Ahora arranca en 0 */
+    transform: translate(-50%, -50%);
 }
 
 /* --- ADAPTACIÓN PARA MÓVILES --- */
@@ -777,8 +926,9 @@ section {
     
     .foto-colgada {
         position: relative !important;
-        left: 0 !important; /* Anula los porcentajes fijos que las desplazaban a la derecha */
-        transform: none !important; /* Reduce rotaciones extremas en móvil si las hubiera */
+        left: 0 !important;
+        top: 0 !important; /* Añadimos esto para resetear la curva en móviles */
+        transform: none !important; 
         margin: 0 5px;
     }
 
@@ -794,4 +944,19 @@ section {
     .polaroid-mini p {
         font-size: 0.7rem;
     }
+}
+
+/* Estilos para las fotos reales una vez insertadas */
+.foto-real {
+    width: 100%;
+    height: 250px; /* Altura perfecta para las fotos grandes de "Nuestra Historia" */
+    object-fit: cover; /* Recorta la imagen proporcionalmente sin deformarla */
+    object-position: top; /* Alinea la foto hacia arriba para no cortar cabezas */
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Ajuste automático para las fotos colgadas pequeñitas */
+.polaroid-mini .foto-real {
+    height: 100px; 
 }

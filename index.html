@@ -56,6 +56,47 @@
         
         <!-- SECCIÓN NUEVA: Tarjetas y Leyendas -->
         <section id="mensajes" class="seccion-clara">
+            <!-- WIDGETS AÑADIDOS -->
+            <div class="widgets-container">
+                <!-- Contador de Aniversario -->
+                <div class="contador-amor">
+                    <h2 class="fecha-inicio">21/07/2026</h2>
+                    <p class="etiqueta-juntos">JUNTOS POR:</p>
+                    <div class="tiempo-juntos">
+                        ❤️ 
+                        <span id="timer-dias">0</span> : 
+                        <span id="timer-horas">00</span> : 
+                        <span id="timer-minutos">00</span> : 
+                        <span id="timer-segundos">00</span> 
+                        ❤️
+                    </div>
+                    <div class="etiquetas-tiempo">
+                        <span>DAYS</span><span>HOURS</span><span>MINUTES</span><span>SECONDS</span>
+                    </div>
+                </div>
+
+                <!-- Reproductor de Música -->
+                <div class="reproductor-musica">
+                    <!-- AÑADE ESTA LÍNEA CON TU ARCHIVO DE AUDIO -->
+                    <audio id="audio-player" src="assets/Toto-Africa.mp3"></audio>
+
+                    <img src="assets/portada-album.jpg" class="portada-album" alt="Portada del álbum">
+                    <div class="info-musica">
+                        <p class="titulo-cancion">Toto - Africa</p>
+                        <div class="barra-progreso">
+                            <div class="progreso-actual" id="progreso-actual"></div>
+                            <div class="punto-progreso" id="punto-progreso"></div>
+                        </div>
+                        <div class="controles-musica">
+                            <span>⏮</span>
+                            <!-- AÑADE EL ID AL BOTÓN DE PLAY -->
+                            <span class="btn-play" id="btn-play">▶️</span>
+                            <span>⏭</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN WIDGETS -->
             <h1 class="titulo-seccion">NUESTRA HISTORIA</h1>
             <h3 class="subtitulo">Más allá del destino</h3>
             <p class="texto-intro">
@@ -112,16 +153,16 @@
             </div> -->
             
             <div class="hito hito-izquierda polaroid" style="transform: rotate(-3deg);">
-                <div class="foto-placeholder">[Foto tuya < 10 años]</div>
+                <img src="assets/foto1-bebe.png" class="foto-real" alt="Foto bebé Val">
                 <p>Cuando el hilo recién se ató y no sabíamos nada del mundo.</p>
             </div>
             <div class="hito hito-derecha polaroid" style="transform: rotate(4deg);">
-                <div class="foto-placeholder">[Foto mía < 10 años]</div>
-                <p>Yo andaba por ahí, con los mismos rodillazos.</p>
+                <img src="assets/foto2-bebe.jpg" class="foto-real" alt="Foto bebé Sebas">
+                <p>Yo andaba por ahí, con los mismos rodillazos, esperando por ti.</p>
             </div>
 
             <div class="hito hito-izquierda polaroid" style="transform: rotate(2deg);">
-                <div class="foto-placeholder">[Foto tuya 10-11 años]</div>
+                <img src="assets/foto3-ninya.jpg" class="foto-real" alt="Foto niña Val">
                 <p>Creciendo sin saber que ya estábamos conectados.</p>
             </div>
             <div class="hito hito-derecha polaroid" style="transform: rotate(-2deg);">
@@ -130,7 +171,7 @@
             </div>
 
             <div class="hito hito-izquierda polaroid" style="transform: rotate(-4deg);">
-                <div class="foto-placeholder">[Foto tuya 12 años]</div>
+                <img src="assets/foto4-ninya.jpg" class="foto-real" alt="Foto niña Val">
                 <p>Empezando a descubrir quiénes éramos.</p>
             </div>
             <div class="hito hito-derecha polaroid" style="transform: rotate(3deg);">
@@ -139,7 +180,7 @@
             </div>
 
             <div class="hito hito-izquierda polaroid" style="transform: rotate(3deg);">
-                <div class="foto-placeholder">[Foto tuya 14 años]</div>
+                <img src="assets/foto5-ninya.jpg" class="foto-real" alt="Foto niña Val">
                 <p>La etapa en la que nos perdimos un poco...</p>
             </div>
             <div class="hito hito-derecha polaroid" style="transform: rotate(-3deg);">
@@ -148,7 +189,7 @@
             </div>
 
             <div class="hito hito-izquierda polaroid" style="transform: rotate(-2deg);">
-                <div class="foto-placeholder">[Foto tuya 16-17 años]</div>
+                <img src="assets/foto6-12anyos.png" class="foto-real" alt="Foto niña Val">
                 <p>Buscando nuestro lugar.</p>
             </div>
             <div class="hito hito-derecha polaroid" style="transform: rotate(4deg);">
@@ -157,7 +198,7 @@
             </div>
 
             <div class="hito hito-izquierda polaroid" style="transform: rotate(2deg);">
-                <div class="foto-placeholder">[Foto tuya 18 años]</div>
+                <img src="assets/foto7-12anyos.png" class="foto-real" alt="Foto tuya 18 años">
                 <p>Acercándonos sin saberlo.</p>
             </div>
             <div class="hito hito-derecha polaroid" style="transform: rotate(-2deg);">
@@ -166,7 +207,7 @@
             </div>
 
             <div class="hito hito-izquierda polaroid" style="transform: rotate(-3deg);">
-                <div class="foto-placeholder">[Foto tuya 20 años]</div>
+                <img src="assets/foto8_19anyos.png" class="foto-real" alt="Foto tuya 20 años">
                 <p>La persona de la que me iba a enamorar.</p>
             </div>
             <div class="hito hito-derecha polaroid" style="transform: rotate(3deg);">
@@ -175,7 +216,7 @@
             </div>
 
             <div class="hito hito-izquierda polaroid" style="transform: rotate(2deg);">
-                <div class="foto-placeholder">[Tu foto favorita nuestra]</div>
+                <img src="assets/foto9-20anyos.jpg" class="foto-real" alt="Tu foto favorita nuestra">
                 <p>Y de repente, el hilo se tensó.</p>
             </div>
             <div class="hito hito-derecha polaroid" style="transform: rotate(-4deg);">
@@ -262,7 +303,8 @@
             <div class="slot" id="slot-3"></div>
         </div>
 
-        <section class="final-visualizer" id="seccion-final">
+        <!-- CÁMBIALO POR ESTA LÍNEA -->
+        <section class="final-visualizer" id="seccion-final" style="display: none;">
             <div class="placeholder-video">
                 <p>[Aquí incrustaremos el vídeo .webm transparente]</p>
             </div>

@@ -60,9 +60,13 @@ regalos.forEach(regalo => {
             regalosEncontrados++;
 
             if (regalosEncontrados === slots.length) {
+                // Hacemos visible la sección oculta
+                const seccionFinal = document.getElementById('seccion-final');
+                seccionFinal.style.display = 'flex'; 
+                
                 setTimeout(() => {
                     alert("¡Has encontrado todos los vales sorpresa! Se ha desbloqueado algo especial al final del hilo...");
-                    document.getElementById('seccion-final').scrollIntoView({ behavior: 'smooth' });
+                    seccionFinal.scrollIntoView({ behavior: 'smooth' });
                 }, 500);
             }
         }
@@ -519,5 +523,68 @@ if (canvas) {
                 p.vy = (dy / distanciaAlCentro) * fuerzaExplosion;
             });
         }
+    });
+}
+
+// --- Contador de Aniversario ---
+// Formato: Año-Mes-Día. Puedes ajustar la hora exacta si la sabes (ej: "2024-09-14T18:30:00")
+const fechaInicio = new Date("2026-07-21T00:00:00").getTime();
+
+function actualizarContador() {
+    const ahora = new Date().getTime();
+    const diferencia = ahora - fechaInicio;
+
+    // Matemáticas para calcular los días, horas, minutos y segundos
+    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+    const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+    // Actualizamos el DOM (padStart asegura que siempre haya 2 dígitos, ej: "09" en vez de "9")
+    document.getElementById("timer-dias").innerText = dias;
+    document.getElementById("timer-horas").innerText = horas.toString().padStart(2, '0');
+    document.getElementById("timer-minutos").innerText = minutos.toString().padStart(2, '0');
+    document.getElementById("timer-segundos").innerText = segundos.toString().padStart(2, '0');
+}
+
+// Actualizar cada segundo
+setInterval(actualizarContador, 1000);
+actualizarContador(); // Ejecución inmediata al cargar la página
+
+// --- Reproductor de Música ---
+const audio = document.getElementById('audio-player');
+const btnPlay = document.getElementById('btn-play');
+const progresoActual = document.getElementById('progreso-actual');
+const puntoProgreso = document.getElementById('punto-progreso');
+
+if (audio && btnPlay) {
+    // 1. Reproducir / Pausar
+    btnPlay.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play();
+            btnPlay.innerText = '⏸'; // Cambia el icono a pausa
+        } else {
+            audio.pause();
+            btnPlay.innerText = '▶️'; // Cambia el icono a play
+        }
+    });
+
+    // 2. Actualizar la barra de progreso en tiempo real
+    audio.addEventListener('timeupdate', () => {
+        // Calculamos el porcentaje de la canción que ya ha sonado
+        const porcentaje = (audio.currentTime / audio.duration) * 100;
+        
+        // Si hay un valor válido, actualizamos el CSS
+        if (!isNaN(porcentaje)) {
+            progresoActual.style.width = `${porcentaje}%`;
+            puntoProgreso.style.left = `${porcentaje}%`;
+        }
+    });
+
+    // 3. Reiniciar cuando termine la canción
+    audio.addEventListener('ended', () => {
+        btnPlay.innerText = '▶️';
+        progresoActual.style.width = '0%';
+        puntoProgreso.style.left = '0%';
     });
 }
