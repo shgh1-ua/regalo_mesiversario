@@ -1153,7 +1153,11 @@ section {
     }
     
     .polaroid-mini p {
-        font-size: 0.7rem;
+        font-family: 'Nunito', sans-serif; /* Aplica la nueva fuente redondeada y legible */
+        font-size: 0.85rem; /* Un pelín más grande para que no fuerces la vista */
+        font-weight: 600; /* Letra un poco más gordita para que destaque */
+        line-height: 1.2; /* Ajusta el espacio entre líneas si el texto ocupa dos renglones */
+        margin-top: 5px; /* Le da un poquito de aire respecto a la foto */
     }
 
     /* Ocultar los GIFs en móvil para que no generen scroll horizontal */
